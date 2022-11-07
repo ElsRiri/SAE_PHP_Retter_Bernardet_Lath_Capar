@@ -20,6 +20,18 @@ class Dispatcher
                 $str = $stmt->execute();
                 $this->renderPage($str);
                 break;
+            case 'DisplayCatalogueAction':
+                $stmt = new \NetVOD\action\DisplayCatalogueAction();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+            
+            case 'DisplayEpisode':
+                $stmt = new \NetVOD\action\DisplayEpisode();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Netvod</H1>";
                 $this->renderPage($str);

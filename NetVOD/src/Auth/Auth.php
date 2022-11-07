@@ -2,6 +2,7 @@
 namespace NetVOD\Auth;
 
 use NetVOD\db\ConnectionFactory;
+use NetVOD\User\User;
 use PDO;
 
 class Auth{
@@ -28,7 +29,7 @@ class Auth{
                 "id" => $data['id'],
             ];
             $_SESSION["connexion"] = $tab;
-            return new \iutnc\deefy\db\User($email, $data['passwd']);
+            return new User($email, $data['passwd']);
         } else {
             return null;
         }

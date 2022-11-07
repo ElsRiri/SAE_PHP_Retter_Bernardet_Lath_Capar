@@ -16,7 +16,7 @@ class Episode
      * @param String $resume
      * @param String $fichier
      */
-    public function __construct(int $id=0, int $numero=0, int $duree=0, int $serie_id,string $titre="", string $resume="",string $fichier="")
+    public function __construct(int $id=0, int $numero=0, int $duree=0, int $serie_id=0 ,string $titre="", string $resume="",string $fichier="")
     {
         $this->id = $id;
         $this->numero = $numero;
@@ -27,4 +27,25 @@ class Episode
         $this->fichier = $fichier;
     }
 
+    
+    function render():string{
+        $sql="select img from serie, episode 
+        where episode.id=?
+        and serie.id= ?
+        and serie.id=episode.serie_id";
+
+        $stmt = \NetVOD\db\ConnectionFactory::$db->prepare($sql);
+        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(2, $this->serie_id);
+        $stmt->execute();
+        $resultset = $stmt->fetch();
+        $img = $resultset[0];
+
+        $html = <<<END
+        <img src="/../../img/$img" alt="img de la série"></img>
+        <h4> $this->titre </h4>
+        <p>$this->resume<br>durée : $this->duree</p>
+        END;
+        return $html;
+    }
 }

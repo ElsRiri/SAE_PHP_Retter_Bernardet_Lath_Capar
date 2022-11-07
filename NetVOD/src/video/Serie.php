@@ -42,6 +42,8 @@ class Serie
 
     }
 
+<<<<<<< HEAD
+=======
     public function __get(string $at): mixed
     {
         if (property_exists($this, $at)) {
@@ -53,4 +55,5 @@ class Serie
 
 
 
+>>>>>>> 8eb411ca67eef04d914926930fae11443401ba66
 }

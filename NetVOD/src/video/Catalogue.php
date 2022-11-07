@@ -24,7 +24,7 @@ class Catalogue {
 
         foreach ($this->series as $tS => $v) {
             $res .= <<<END
-            <li>"."<a href="index.php?action=DisplaySerieAction&$v->id">$v->titre</a> : <img src='/../../img/$v->img' alt='img de la série'></img></li>
+            <li><a href="index.php?action=DisplaySerieAction&idserie=$v->id">$v->titre</a> : <img src='img/$v->img' alt='img de la série'></img></li>
             END;
         }
 

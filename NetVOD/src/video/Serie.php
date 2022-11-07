@@ -29,7 +29,7 @@ class Serie
 
         if (count($ep) == 0) {
             $connexion = \NetVOD\db\ConnectionFactory::makeConnection();
-            $stmt = $connexion->prepare("SELECT * FROM EPISODE WHERE serie_id = ? ORDER BY NUMERO ASC");
+            $stmt = $connexion->prepare("SELECT * FROM episode WHERE serie_id = ? ORDER BY NUMERO ASC");
             $stmt->bindParam(1, $this -> id);
             $stmt->execute();
             $listeEpisode = [];

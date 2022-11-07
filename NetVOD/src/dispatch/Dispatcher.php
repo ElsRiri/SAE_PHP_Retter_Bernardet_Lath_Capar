@@ -1,7 +1,6 @@
 <?php
 
 namespace NetVOD\dispatch;
-
 class Dispatcher
 {
     private $action;
@@ -56,8 +55,10 @@ class Dispatcher
     private function renderPage(string $html): void
     {
         $co = "";
-        if (isset($_SESSION['user'])){
-            $co = "<li>Affichage du catalogue</li>";
+        if (isset($_SESSION['connexion'])){
+            $co = <<<END
+            <li><a href="index.php?action=DisplayCatalogueAction">Affichage du catalogue</a></li>
+            END;
         }
         echo <<<END
 <!DOCTYPE html>

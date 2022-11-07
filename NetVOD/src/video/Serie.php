@@ -2,6 +2,8 @@
 
 namespace NetVOD\video;
 
+use \NetVOD\Exception\InvalidPropertyNameException;
+
 class Serie
 {
     protected string $titre, $descriptif, $date_ajout, $img;

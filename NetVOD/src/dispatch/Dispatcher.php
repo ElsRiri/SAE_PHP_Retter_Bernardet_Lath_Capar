@@ -15,7 +15,11 @@ class Dispatcher
     public function run(): void
     {
         switch ($this->action) {
-
+            case 'DisplaySerieAction':
+                $stmt = new \NetVOD\action\DisplaySerieAction();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
             default :
                 $str = "<H1>Netvod</H1>";
                 $this->renderPage($str);

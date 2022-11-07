@@ -4,21 +4,27 @@ namespace NetVOD\video;
 
 class Episode
 {
-    protected int $numero,$duree;
-    protected String $image,$titre;
+    protected int $id,$numero,$duree,$serie_id;
+    protected String $titre,$resume,$fichier;
 
     /**
+     * @param int $id
      * @param int $numero
      * @param int $duree
-     * @param String $image
+     * @param int $serie_id
      * @param String $titre
+     * @param String $resume
+     * @param String $fichier
      */
-    public function __construct( string $titre="", int $numero=0, int $duree=0, string $image="")
+    public function __construct(int $id=0, int $numero=0, int $duree=0, int $serie_id,string $titre="", string $resume="",string $fichier="")
     {
+        $this->id = $id;
         $this->numero = $numero;
         $this->duree = $duree;
-        $this->image = $image;
+        $this->serie_id = $serie_id;
         $this->titre = $titre;
+        $this->resume = $resume;
+        $this->fichier = $fichier;
     }
 
 }

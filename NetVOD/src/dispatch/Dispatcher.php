@@ -56,7 +56,7 @@ class Dispatcher
     private function renderPage(string $html): void
     {
         $co = "";
-        if ($_SESSION['user']){
+        if (isset($_SESSION['user'])){
             $co = "<li>Affichage du catalogue</li>";
         }
         echo <<<END

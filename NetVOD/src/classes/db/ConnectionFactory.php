@@ -1,6 +1,6 @@
 <?php
 
-namespace NetVOD\classes\db;
+namespace NetVOD\db;
 
 class ConnectionFactory
 {

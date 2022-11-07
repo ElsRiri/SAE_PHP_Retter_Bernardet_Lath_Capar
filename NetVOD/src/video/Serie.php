@@ -6,6 +6,7 @@ class Serie
 {
     protected String $titre,$descriptif,$date_ajout,$img;
     protected int $id,$annee;
+    protected array $episode;
 
     /**
      * @param int $id
@@ -14,8 +15,9 @@ class Serie
      * @param String img
      * @param int $annee
      * @param String $date_ajout
+     * @param array $ep
      */
-    public function __construct(int $id=0, string $titre="", string $descriptif="", string $img="", int $annee=0, string $date_ajout="" )
+    public function __construct(int $id=0, string $titre="", string $descriptif="", string $img="", int $annee=0, string $date_ajout="",array $ep=[] )
     {
         $this->id = $id;
         $this->titre = $titre;
@@ -23,5 +25,6 @@ class Serie
         $this->img = $img;
         $this->annee = $annee;
         $this->date_ajout = $date_ajout;
+        $this->episode = $ep;
     }
 }

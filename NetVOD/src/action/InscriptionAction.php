@@ -10,7 +10,7 @@ class InscriptionAction extends Action
         $html = "";
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $html = <<<END
-<form id="inscription" method="post" action="principal.php?action=add-user">
+<form id="inscription" method="post" action="index.php?action=Inscription">
 <label>Email : </label>
 <input name="email" type="email" placeholder="<email>">
 <label>Mot de passe : </label>

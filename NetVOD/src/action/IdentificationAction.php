@@ -10,7 +10,7 @@ class IdentificationAction extends \NetVOD\action\Action
         $html = "";
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $html = <<<END
-<form id="connexion" method="post" action="principal.php?action=signin">
+<form id="connexion" method="post" action="index.php?action=Identification">
 <label>Email : </label>
 <input name="email" type="email" placeholder="<email>">
 <label>Mot de passe : </label>

@@ -1,7 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 try{
-    \NetVOD\db\ConnectionFactory::setConfig('db.config.ini');
+    \NetVOD\db\ConnectionFactory::setConfig('db.ini');
     $db = \NetVOD\db\ConnectionFactory::makeConnection();
 }catch (Error $ignored){
     echo "problème avec la base de donnée.";

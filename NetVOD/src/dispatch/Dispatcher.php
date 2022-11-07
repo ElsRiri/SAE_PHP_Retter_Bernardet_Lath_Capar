@@ -32,14 +32,14 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
-            case 'Identification':
-                $stmt = new \NetVOD\action\Identification();
+            case 'identification':
+                $stmt = new \NetVOD\action\IdentificationAction();
                 $str = $stmt->execute();
                 $this->renderPage($str);
                 break;
 
-            case 'Inscription':
-                $stmt = new \NetVOD\action\Inscription();
+            case 'inscription':
+                $stmt = new \NetVOD\action\InscriptionAction();
                 $str = $stmt->execute();
                 $this->renderPage($str);
                 break;
@@ -66,9 +66,9 @@ class Dispatcher
 <h1>NetVOD</h1>
 <nav>
 <ul>
-<li><a href="principal.php">Accueil</a></li>
-<li><a href="principal.php?action=add-user">Inscription</a></li>
-<li><a href="principal.php?action=signin">Connexion</a></li>
+<li><a href="index.php">Accueil</a></li>
+<li><a href="index.php?action=inscription">Inscription</a></li>
+<li><a href="index.php?action=identification">Connexion</a></li>
 </ul>
 </nav>
 $html

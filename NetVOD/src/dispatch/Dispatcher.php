@@ -32,8 +32,8 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
-            case 'Identification':
-                $stmt = new \NetVOD\action\Identification();
+            case 'IdentificationAction':
+                $stmt = new \NetVOD\action\IdentificationAction();
                 $str = $stmt->execute();
                 $this->renderPage($str);
                 break;

@@ -53,8 +53,8 @@ class Episode
 
         $html = <<<END
         <img src="img/$img" alt="img de la série">
-        <h4> $this->titre </h4>
-        <p>$this->resume<br>durée : $this->duree</p>
+        <h4> Titre : $this->titre </h4>
+        <p> Résumé : $this->resume<br> Durée : $this->duree</p>
         END;
         return $html;
     }

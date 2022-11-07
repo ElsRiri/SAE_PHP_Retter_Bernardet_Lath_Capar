@@ -22,15 +22,14 @@ class DisplaySerieAction extends Action
             $serie=null;
             if(count($resultatSet) != 0){
                 $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
-                //$serie->insertEpisode();
-                foreach ($serie->episode as $value) print $value->titre;
            }
-           $string = $serie->render();
             $s = <<<END
-           $string
-END;
-        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
-
+            {$serie->render()}
+            END;
+        } else{
+            $s .= <<<END
+            <p><strong>Vous ne pouvez pas afficher le catalogue sans vous connecter au préalable !</strong></p>
+            END;
         }
         return $s;
     }

@@ -54,10 +54,10 @@ class Serie
 
     public function render():string {
         $html = <<<END
-        <h4>$this->titre</h4>
-        <p>$this->descriptif<p>
+        <h4>Titre : $this->titre</h4>
+        <p>Description : $this->descriptif<p>
         <img src="img/$this->img" alt ="img de la série"></img>
-        <i> année : $this->annee - ajoutée sur la plateforme le $this->date_ajout</i>
+        <br><i> Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
         END;
 
         foreach ($this->episode as $value){

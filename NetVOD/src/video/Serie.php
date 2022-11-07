@@ -42,18 +42,12 @@ class Serie
 
     }
 
-<<<<<<< HEAD
-=======
     public function __get(string $at): mixed
     {
         if (property_exists($this, $at)) {
             return $this->$at;
         }
-        throw new InvalidPropertyNameException("$at: invalid property");
+        throw new  \NetVOD\Exception\InvalidPropertyNameException("$at: invalid property");
 
     }
-
-
-
->>>>>>> 8eb411ca67eef04d914926930fae11443401ba66
 }

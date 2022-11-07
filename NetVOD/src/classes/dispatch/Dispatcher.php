@@ -17,7 +17,7 @@ class Dispatcher
         switch ($this->action) {
 
             default :
-                $str = "<H1>Bienvenue sur Deefy, vous avez vla les options pour vous amuser</H1>";
+                $str = "<H1>Netvod</H1>";
                 $this->renderPage($str);
                 break;
         }

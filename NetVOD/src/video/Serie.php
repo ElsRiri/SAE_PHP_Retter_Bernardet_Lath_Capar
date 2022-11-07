@@ -4,8 +4,8 @@ namespace NetVOD\video;
 
 class Serie
 {
-    protected String $titre,$descriptif,$date_ajout,$img;
-    protected int $id,$annee;
+    protected string $titre, $descriptif, $date_ajout, $img;
+    protected int $id, $annee;
     protected array $episode;
 
     /**
@@ -17,7 +17,7 @@ class Serie
      * @param String $date_ajout
      * @param array $ep
      */
-    public function __construct(int $id=0, string $titre="", string $descriptif="", string $img="", int $annee=0, string $date_ajout="",array $ep=[] )
+    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "", array $ep = [])
     {
         $this->id = $id;
         $this->titre = $titre;
@@ -26,6 +26,34 @@ class Serie
         $this->annee = $annee;
         $this->date_ajout = $date_ajout;
         $this->episode = $ep;
+
+        if ($ep->count() == 0) {
+            $connexion = \NetVOD\db\ConnectionFactory::makeConnection();
+            $stmt = $connexion->prepare("SELECT * FROM EPISODE WHERE serie_id = ? ORDER BY NUMERO ASC");
+            $stmt->bindParam(1, $this -> id);
+            $stmt->execute();
+            $listeEpisode = [];
+            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                $listeEpisode->push(new Episode($row['id'], $row['numero'], $row['duree'], $this->id, $row['titre'], $row['resume'], $row['file']));
+            }
+            $this->ep = $listeEpisode;
+        }
+
+
     }
 
+<<<<<<< HEAD
+=======
+    public function __get(string $at): mixed
+    {
+        if (property_exists($this, $at)) {
+            return $this->$at;
+        }
+        throw new InvalidPropertyNameException("$at: invalid property");
+
+    }
+
+
+
+>>>>>>> 8eb411ca67eef04d914926930fae11443401ba66
 }

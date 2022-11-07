@@ -55,6 +55,10 @@ class Dispatcher
 
     private function renderPage(string $html): void
     {
+        $co = "";
+        if (isset($_SESSION['user'])){
+            $co = "<li>Affichage du catalogue</li>";
+        }
         echo <<<END
 <!DOCTYPE html>
 <html lang="en">
@@ -69,6 +73,7 @@ class Dispatcher
 <li><a href="index.php">Accueil</a></li>
 <li><a href="index.php?action=inscription">Inscription</a></li>
 <li><a href="index.php?action=identification">Connexion</a></li>
+$co
 </ul>
 </nav>
 $html

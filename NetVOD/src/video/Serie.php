@@ -4,26 +4,24 @@ namespace NetVOD\video;
 
 class Serie
 {
-    protected String $titre,$genre,$publicVise,$descriptif,$dateAjoutPlateforme;
-    protected int $annee,$nbEpisode;
+    protected String $titre,$descriptif,$date_ajout,$img;
+    protected int $id,$annee;
 
     /**
+     * @param int $id
      * @param String $titre
-     * @param String $genre
-     * @param String $publicVise
      * @param String $descriptif
-     * @param String $dateAjoutPlateforme
+     * @param String img
      * @param int $annee
-     * @param int $nbEpisode
+     * @param String $date_ajout
      */
-    public function __construct(string $titre="", string $genre="", string $publicVise="", string $descriptif="", string $dateAjoutPlateforme="", int $annee=0, int $nbEpisode=0)
+    public function __construct(int $id=0, string $titre="", string $descriptif="", string $img="", int $annee=0, string $date_ajout="" )
     {
+        $this->id = $id;
         $this->titre = $titre;
-        $this->genre = $genre;
-        $this->publicVise = $publicVise;
         $this->descriptif = $descriptif;
-        $this->dateAjoutPlateforme = $dateAjoutPlateforme;
+        $this->img = $img;
         $this->annee = $annee;
-        $this->nbEpisode = $nbEpisode;
+        $this->date_ajout = $date_ajout;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace netvod\Auth;
+namespace NetVOD\Auth;
 
 use NetVOD\db\ConnectionFactory;
 use PDO;
@@ -26,16 +26,15 @@ class Auth{
                 "email" => $email,
                 "mdp" => $mdp,
                 "id" => $data['id'],
-                "role" => $data['role'],
             ];
             $_SESSION["connexion"] = $tab;
-            return new \iutnc\deefy\db\User($email, $data['passwd'], $data['role']);
+            return new \iutnc\deefy\db\User($email, $data['passwd']);
         } else {
             return null;
         }
     }
 
-    static function register($mail, $mdp)
+    static function register($mail, $mdp) : string
     {
 
         //Longueur
@@ -61,48 +60,15 @@ class Auth{
             $stmt->execute();
             $data = $stmt ->fetch(PDO::FETCH_ASSOC);
             $id = $data['id']+1;
-            $role = 1;
 
-            $stmt = $connexion->prepare('INSERT INTO user VALUES(?, ?, ?, ?)');
+            $stmt = $connexion->prepare('INSERT INTO user VALUES(?, ?, ?)');
             $stmt->bindParam(1, $id);
             $stmt->bindParam(2, $mail);
             $stmt->bindParam(3, $passhash);
-            $stmt->bindParam(4, $role);
             $stmt->execute();
             return "succès";
         }
 
     }
-
-//    public static function verifAdminPlaylist($id_pl):bool
-//    {
-//        session_start();
-//        if (!empty($_SESSION['connexion'])) {
-//            $log = $_SESSION['connexion'];
-//            if ($log['role'] == 100) {
-//                return true;
-//            } else {
-//                $connexion = ConnectionFactory::makeConnection();
-//                $stmt = $connexion->prepare('SELECT * FROM user2playlist WHERE id_pl = ?');
-//                $stmt->bindParam(1, $id_pl);
-//                $stmt->execute();
-//                $data = $stmt->fetch(PDO::FETCH_ASSOC);
-//                $stmtverif = $connexion->prepare('SELECT * FROM playlist WHERE id = ?');
-//                $stmtverif->bindParam(1, $id_pl);
-//                $stmtverif->execute();
-//                $rowcount = $stmtverif->rowCount();
-//                if ($rowcount == 0){
-//                    return false;
-//                }
-//                if ($log['role'] == $data['id_user']) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            }
-//        } else {
-//            return false;
-//        }
-//    }
 
 }

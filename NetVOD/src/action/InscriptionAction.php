@@ -2,6 +2,8 @@
 
 namespace NetVOD\action;
 
+use NetVOD\Auth\Auth;
+
 class InscriptionAction extends Action
 {
 
@@ -10,7 +12,7 @@ class InscriptionAction extends Action
         $html = "";
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $html = <<<END
-<form id="inscription" method="post" action="principal.php?action=add-user">
+<form id="inscription" method="post" action="index.php?action=inscription">
 <label>Email : </label>
 <input name="email" type="email" placeholder="<email>">
 <label>Mot de passe : </label>
@@ -21,7 +23,7 @@ END;
             return $html;
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-            Auth/A ($_POST['email'], $_POST['password']);
+            $html = Auth::register($_POST['email'], $_POST['password']);
         }
         return $html;
 

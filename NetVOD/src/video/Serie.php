@@ -34,7 +34,7 @@ class Serie
             $stmt->execute();
             $listeEpisode = [];
             while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-                $listeEpisode->push(new Episode($row['id'], $row['numero'], $row['duree'], $this->id, $row['titre'], $row['resume'], $row['file']));
+                $listeEpisode[] = new Episode($row['id'], $row['numero'], $row['duree'], $this->id, $row['titre'], $row['resume'], $row['file']);
             }
             $this->ep = $listeEpisode;
         }

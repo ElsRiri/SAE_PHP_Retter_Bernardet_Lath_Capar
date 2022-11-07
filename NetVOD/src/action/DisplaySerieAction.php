@@ -15,16 +15,19 @@ class DisplaySerieAction extends Action
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $idSerie = $_GET['idserie'];
             $connexion = ConnectionFactory::makeConnection();
-            $stmt = $connexion -> prepare("SELECT * from SERIE WHERE id = ?");
-            $stmt -> bind(1,$idSerie);
-            $stmt -> exec();
+            $stmt = $connexion -> prepare("SELECT * from serie WHERE id = ?");
+            $stmt -> bindParam(1,$idSerie);
+            $stmt -> execute();
             $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
             $serie=null;
-            if($resultatSet->count() == 1){
+            if(count($resultatSet) != 0){
                 $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
-            }
+                //$serie->insertEpisode();
+                foreach ($serie->episode as $value) print $value->titre;
+           }
+           $string = $serie->render();
             $s = <<<END
-
+           $string
 END;
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
 

@@ -25,24 +25,9 @@ class Serie
         $this->img = $img;
         $this->annee = $annee;
         $this->date_ajout = $date_ajout;
-        $this->episode = $ep;
-
-        if (count($ep) == 0) {
-            $connexion = \NetVOD\db\ConnectionFactory::makeConnection();
-            $stmt = $connexion->prepare("SELECT * FROM episode WHERE serie_id = ? ORDER BY NUMERO ASC");
-            $stmt->bindParam(1, $this -> id);
-            $stmt->execute();
-            $listeEpisode = [];
-            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-                $listeEpisode[] = new Episode($row['id'], $row['numero'], $row['duree'], $this->id, $row['titre'], $row['resume'], $row['file']);
-            }
-            $this->ep = $listeEpisode;
-        }
-
-
+        $this->episode = $this->insertEpisode();
 
     }
-
     public function __get(string $at): mixed
     {
         if (property_exists($this, $at)) {
@@ -51,4 +36,34 @@ class Serie
         throw new  \NetVOD\Exception\InvalidPropertyNameException("$at: invalid property");
 
     }
+
+
+    public function insertEpisode():array{
+        $sql = "select * from episode where episode.serie_id = ?";
+        $stmt = \NetVOD\db\ConnectionFactory::$db->prepare($sql);
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
+        while ($data = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $tab[]=new \NetVOD\video\Episode($data['id'], $data['numero'], $data['duree'], $data['serie_id'], $data['titre'], $data['resume'], $data['file']);
+        }
+        return $tab;
+    }
+    
+
+    public function render():string {
+        $html = <<<END
+        <h4>$this->titre</h4>
+        <p>$this->descriptif<p>
+        <img src="img/$this->img" alt ="img de la série"></img>
+        <i> année : $this->annee - ajoutée sur la plateforme le $this->date_ajout</i>
+        END;
+
+        foreach ($this->episode as $value){
+            $html .= <<<END
+            <li> <a href = "index.php?action=DisplayEpisode&idepisode=$value->id">$value->numero - $value->titre</a>
+            END;
+        }
+        return $html;
+    }
+    
 }

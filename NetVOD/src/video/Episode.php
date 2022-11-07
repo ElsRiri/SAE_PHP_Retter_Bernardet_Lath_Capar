@@ -27,6 +27,16 @@ class Episode
         $this->fichier = $fichier;
     }
 
+    public function __get(string $at): mixed
+    {
+        if (property_exists($this, $at)) {
+            return $this->$at;
+        }
+        throw new  \NetVOD\Exception\InvalidPropertyNameException("$at: invalid property");
+
+    }
+    
+
     
     function render():string{
         $sql="select img from serie, episode 
@@ -42,7 +52,7 @@ class Episode
         $img = $resultset[0];
 
         $html = <<<END
-        <img src="/../../img/$img" alt="img de la série"></img>
+        <img src="img/$img" alt="img de la série">
         <h4> $this->titre </h4>
         <p>$this->resume<br>durée : $this->duree</p>
         END;

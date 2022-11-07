@@ -32,6 +32,18 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
+            case 'Identification':
+                $stmt = new \NetVOD\action\Identification();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
+            case 'Inscription':
+                $stmt = new \NetVOD\action\Inscription();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Netvod</H1>";
                 $this->renderPage($str);

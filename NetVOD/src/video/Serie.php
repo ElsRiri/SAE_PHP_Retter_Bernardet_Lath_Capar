@@ -27,17 +27,18 @@ class Serie
         $this->date_ajout = $date_ajout;
         $this->episode = $ep;
 
-        if ($ep->count() == 0) {
+        if (count($ep) == 0) {
             $connexion = \NetVOD\db\ConnectionFactory::makeConnection();
-            $stmt = $connexion->prepare("SELECT * FROM EPISODE WHERE serie_id = ? ORDER BY NUMERO ASC");
+            $stmt = $connexion->prepare("SELECT * FROM episode WHERE serie_id = ? ORDER BY NUMERO ASC");
             $stmt->bindParam(1, $this -> id);
             $stmt->execute();
             $listeEpisode = [];
             while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-                $listeEpisode->push(new Episode($row['id'], $row['numero'], $row['duree'], $this->id, $row['titre'], $row['resume'], $row['file']));
+                $listeEpisode[] = new Episode($row['id'], $row['numero'], $row['duree'], $this->id, $row['titre'], $row['resume'], $row['file']);
             }
             $this->ep = $listeEpisode;
         }
+
 
 
     }

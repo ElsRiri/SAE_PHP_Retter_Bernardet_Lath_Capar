@@ -2,6 +2,8 @@
 
 namespace NetVOD\action;
 
+use NetVOD\Auth\Auth;
+
 class IdentificationAction extends \NetVOD\action\Action
 {
 
@@ -10,7 +12,7 @@ class IdentificationAction extends \NetVOD\action\Action
         $html = "";
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $html = <<<END
-<form id="connexion" method="post" action="index.php?action=Identification">
+<form id="connexion" method="post" action="index.php?action=identification">
 <label>Email : </label>
 <input name="email" type="email" placeholder="<email>">
 <label>Mot de passe : </label>
@@ -20,15 +22,15 @@ class IdentificationAction extends \NetVOD\action\Action
 END;
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $us = \iutnc\deefy\auth\Auth\Auth::authenticate($_POST['email'], $_POST['password']);
+            $us = Auth::authenticate($_POST['email'], $_POST['password']);
             if (!is_null($us)) {
-                $tab = $us->getPlaylists();
-                foreach ($tab as $key => $value) {
-                    $var = \iutnc\deefy\audio\lists\Playlist::find($value["id"]);
-                    $var2 = new \iutnc\deefy\render\AudioListRenderer($var);
-                    $str = $var2->render(1);
-                    $html .= $str;
-                }
+                //$tab = $us->getPlaylists();
+                //foreach ($tab as $key => $value) {
+                    //$var = \iutnc\deefy\audio\lists\Playlist::find($value["id"]);
+                    //$var2 = new \iutnc\deefy\render\AudioListRenderer($var);
+                    //$str = $var2->render(1);
+                    //$html .= $str;
+                //}
             } else {
                 $html = "Ces informations ne vous ont pas permis de vous authentifier";
             }

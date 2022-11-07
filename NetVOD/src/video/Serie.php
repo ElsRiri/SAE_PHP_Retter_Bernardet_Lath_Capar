@@ -27,4 +27,5 @@ class Serie
         $this->date_ajout = $date_ajout;
         $this->episode = $ep;
     }
+
 }

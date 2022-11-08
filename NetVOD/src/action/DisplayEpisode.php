@@ -11,7 +11,7 @@ class DisplayEpisode extends Action {
     public function execute() : string{
         $html = "";
         if ($this->http_method=="GET") {
-            if (!isset($_SESSION['connexion'])){
+            if (isset($_SESSION['connexion'])){
                 $idEp = $_GET['idepisode'];
                 $sql = "select * from episode where episode.id = ?";
                 $stmt = \NetVOD\db\ConnectionFactory::$db->prepare($sql);

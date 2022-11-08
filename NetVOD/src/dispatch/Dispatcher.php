@@ -80,6 +80,7 @@ class Dispatcher
             $string .= "</ul>";
             $co = <<<END
             <li><a href="index.php?action=DisplayCatalogueAction">Affichage du catalogue</a></li><BR>
+            <li><a href="index.php?action=DisplaySerieEnCoursAction">Vos série en cours</a></li><BR>
             $string
 
             END;

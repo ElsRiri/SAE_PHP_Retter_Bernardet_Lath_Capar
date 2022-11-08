@@ -15,7 +15,7 @@ class DisplayCatalogueAction extends Action {
         $html = "";
         
         if ($this->http_method=="GET") {
-            if (isset($_SESSION['connexion']['email'])){
+            if (!isset($_SESSION['connexion']->email)){
                 $catalogue = new Catalogue();
                 $html = <<<END
                 {$catalogue->render()}

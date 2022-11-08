@@ -1,6 +1,9 @@
 <?php
 
 namespace NetVOD\dispatch;
+
+use NetVOD\User\User;
+
 class Dispatcher
 {
     private $action;
@@ -43,10 +46,16 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
+            case 'DisplaySerieEnCoursAction':
+                $stmt = new \NetVOD\action\DisplaySerieEnCoursAction();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Bienvenue sur Netvod</H1>";
                 if(isset($_SESSION['connexion'])){
-                    $str.= 'vous etes connecté, '.$_SESSION['connexion']['email'];
+                    $str.= 'vous etes connecté, '.$_SESSION['connexion']->email;
                 }else{
                     $str.= 'vous etes pas connecté';
                 }
@@ -61,8 +70,18 @@ class Dispatcher
     {
         $co = "";
         if (isset($_SESSION['connexion'])){
+            $tPREF = $_SESSION['connexion']->getPreference();
+            $string = "<ul>";
+            foreach ($tPREF as $t => $v) {
+                $string .= <<<END
+                <li><a href="index.php?action=DisplaySerieAction&idserie=$v->id">$v->titre</a></li>
+                END;
+            }
+            $string .= "</ul>";
             $co = <<<END
-            <li><a href="index.php?action=DisplayCatalogueAction">Affichage du catalogue</a></li>
+            <li><a href="index.php?action=DisplayCatalogueAction">Affichage du catalogue</a></li><BR>
+            $string
+
             END;
         }
         echo <<<END

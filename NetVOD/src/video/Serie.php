@@ -54,12 +54,25 @@ class Serie
     
 
     public function render():string {
+        foreach ($_GET as $t => $v){
+            if ($t==="action"){
+                $display=$v;
+            }
+            if ($t==="idserie"){
+                $idS=$v;
+            }
+        }
         $html = <<<END
         <h4>Titre : $this->titre</h4>
         <p>Description : $this->descriptif<p>
         <img src="img/$this->img" alt ="img de la série"></img>
         <br><i> Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
-        <br><a href = "index.php?action=ajouterpref&film="$this->id>Ajouter pref</a>
+        <br>
+        <form method="post" action="index.php?action=$display&idserie=$idS">
+            <input type="submit" name="$this->id"
+                    class="button" value="$this->id" />
+        </form>
+
         END;
 
         foreach ($this->episode as $value){
@@ -70,18 +83,36 @@ class Serie
         return $html;
     }
 
-    public function ajouterPreferene($film)
+    public static function ajouterPreference($serie)
     {
         $co = ConnectionFactory::makeConnection();
-        $tabsess = $_SESSION['connexion'];
-        $email = $tabsess['email'];
+        $email = $_SESSION['connexion']->email;
         $stmtid = $co->prepare('SELECT * FROM user WHERE email = ?');
-        $stmtid->bindParam($email);
+        $stmtid->bindParam(1,$email);
+        $stmtid->execute();
         $dataid = $stmtid->fetch(\PDO::FETCH_ASSOC);
         $id = $dataid['id'];
         $stmt = $co->prepare('INSERT INTO preference VALUES (?, ?)');
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $serie);
+        $stmt->execute();
+    }
 
-        $stmt->bindParam($id, $film);
+    public static function verifier($serie,$user):bool{
+        $trouver=false;
+        $co = ConnectionFactory::makeConnection();
+
+        $stmt = $co->prepare("SELECT id_serie FROM preference WHERE id_user=?");
+        $stmt->bindParam(1,$user);
+        $stmt->execute();
+
+        while ($data = $stmt->fetch()){
+            if ($serie===$data[0]){
+                $trouver=true;
+            }
+        }
+
+        return $trouver;
     }
     
 }

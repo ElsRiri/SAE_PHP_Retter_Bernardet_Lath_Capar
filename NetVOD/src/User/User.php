@@ -48,4 +48,18 @@ class User
         return $listVidePref;
     }
 
+    public function getId():int{
+        $id=0;
+
+        $sql = "SELECT id FROM user WHERE email='{$this->email}'";
+        $res = ConnectionFactory::$db->prepare($sql);
+        $res->execute();
+
+        while ($data = $res->fetch()){
+            $id = $data[0];
+        }
+
+        return $id;
+    }
+
 }

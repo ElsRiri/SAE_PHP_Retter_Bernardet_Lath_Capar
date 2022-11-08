@@ -43,6 +43,12 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
+            case 'DisplaySerieEnCoursAction':
+                $stmt = new \NetVOD\action\DisplaySerieEnCoursAction();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Bienvenue sur Netvod</H1>";
                 if(isset($_SESSION['connexion'])){

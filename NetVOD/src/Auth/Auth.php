@@ -23,12 +23,12 @@ class Auth{
 
         if($boo){
             
-            $tab = [
-                "email" => $email,
-                "mdp" => $mdp,
-                "id" => $data['id'],
-            ];
-            $_SESSION["connexion"] = $tab;
+            //$tab = [
+                //"email" => $email,
+                //"mdp" => $mdp,
+                //"id" => $data['id'],
+            //];
+            $_SESSION["connexion"] = new User($email, $data['passwd']);
             return new User($email, $data['passwd']);
         } else {
             return null;

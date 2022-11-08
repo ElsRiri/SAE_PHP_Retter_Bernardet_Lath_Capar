@@ -3,6 +3,7 @@
 namespace NetVOD\User;
 
 use NetVOD\db\ConnectionFactory;
+use NetVOD\video\Serie;
 
 class User
 {
@@ -29,13 +30,19 @@ class User
 
     public function getPreference():array{
         $listVidePref = [];
-
-        $sql = "SELECT id_serie FROM preference";
+        $sql = "SELECT serie.id, serie.titre
+            from serie, preference, user
+            where serie.id=preference.id_serie 
+            and user.id= preference.id_user
+            and user.email='{$this->email}'";
         $res = ConnectionFactory::$db->prepare($sql);
         $res->execute();
 
+        $serie = Serie::class;
+
         while ($data = $res->fetch()){
-            array_push($listVidePref,$data[0]);
+            $serie = new Serie($data[0],$data[1]);
+            array_push($listVidePref,$serie);
         }
 
         return $listVidePref;

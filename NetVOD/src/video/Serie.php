@@ -2,6 +2,7 @@
 
 namespace NetVOD\video;
 
+use NetVOD\db\ConnectionFactory;
 use \NetVOD\Exception\InvalidPropertyNameException;
 
 class Serie
@@ -58,6 +59,7 @@ class Serie
         <p>Description : $this->descriptif<p>
         <img src="img/$this->img" alt ="img de la série"></img>
         <br><i> Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
+        <br><a href = "index.php?action=ajouterpref&film="$this->id>Ajouter pref</a>
         END;
 
         foreach ($this->episode as $value){
@@ -66,6 +68,20 @@ class Serie
             END;
         }
         return $html;
+    }
+
+    public function ajouterPreferene($film)
+    {
+        $co = ConnectionFactory::makeConnection();
+        $tabsess = $_SESSION['connexion'];
+        $email = $tabsess['email'];
+        $stmtid = $co->prepare('SELECT * FROM user WHERE email = ?');
+        $stmtid->bindParam($email);
+        $dataid = $stmtid->fetch(\PDO::FETCH_ASSOC);
+        $id = $dataid['id'];
+        $stmt = $co->prepare('INSERT INTO preference VALUES (?, ?)');
+
+        $stmt->bindParam($id, $film);
     }
     
 }

@@ -19,10 +19,10 @@ class DisplaySerieAction extends Action
             $stmt -> bindParam(1,$idSerie);
             $stmt -> execute();
             $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $serie=null;
-            if(count($resultatSet) != 0){
+            $serie = null;
+            if(count($resultatSet)>=1){
                 $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
-           }
+            }
             $s = <<<END
             {$serie->render()}
             END;

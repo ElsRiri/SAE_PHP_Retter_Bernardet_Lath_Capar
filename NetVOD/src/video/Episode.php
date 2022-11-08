@@ -54,6 +54,7 @@ class Episode
         $html = <<<END
         <img src="img/$img" alt="img de la série">
         <h4> Titre : $this->titre </h4>
+        //TODO rajouter balise video
         <p> Résumé : $this->resume<br> Durée : $this->duree</p>
         END;
         return $html;

@@ -22,7 +22,6 @@ class Auth{
         $boo = password_verify($mdp, $data['passwd']);
 
         if($boo){
-            session_start();
             $tab = [
                 "email" => $email,
                 "mdp" => $mdp,

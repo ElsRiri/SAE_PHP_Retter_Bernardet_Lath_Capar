@@ -44,7 +44,12 @@ class Dispatcher
                 break;
 
             default :
-                $str = "<H1>Netvod</H1>";
+                $str = "<H1>Bienvenue sur Netvod</H1>";
+                if(isset($_SESSION['connexion'])){
+                    $str.= 'vous etes connecté, '.$_SESSION['connexion']['email'];
+                }else{
+                    $str.= 'vous etes pas connecté';
+                }
                 $this->renderPage($str);
                 break;
         }

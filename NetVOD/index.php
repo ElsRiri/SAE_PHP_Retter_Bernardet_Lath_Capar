@@ -1,5 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
+session_start();
+
 try{
     \NetVOD\db\ConnectionFactory::setConfig('db.ini');
     $db = \NetVOD\db\ConnectionFactory::makeConnection();

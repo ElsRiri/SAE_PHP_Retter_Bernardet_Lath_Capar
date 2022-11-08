@@ -51,10 +51,23 @@ class Episode
         $resultset = $stmt->fetch();
         $img = $resultset[0];
 
+        $sql2="select file from serie, episode 
+        where episode.id=?
+        and serie.id= ?
+        and serie.id=episode.serie_id";
+        $stmt = \NetVOD\db\ConnectionFactory::$db->prepare($sql2);
+        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(2, $this->serie_id);
+        $stmt->execute();
+        $resultset = $stmt->fetch();
+        $vid = $resultset[0];
+
         $html = <<<END
         <img src="img/$img" alt="img de la série">
         <h4> Titre : $this->titre </h4>
-        //TODO rajouter balise video
+        <video controls width="500">
+            <source src="video/$vid" type="video/mp4">
+        </video>
         <p> Résumé : $this->resume<br> Durée : $this->duree</p>
         END;
         return $html;

@@ -70,7 +70,7 @@ class Serie
         <br>
         <form method="post" action="index.php?action=$display&idserie=$idS">
             <input type="submit" name="$this->id"
-                    class="button" value="$this->id" />
+                    class="button" value="Favorie" />
         </form>
 
         END;
@@ -107,7 +107,7 @@ class Serie
         $stmt->execute();
 
         while ($data = $stmt->fetch()){
-            if ($serie===$data[0]){
+            if ($serie==$data[0]){
                 $trouver=true;
             }
         }

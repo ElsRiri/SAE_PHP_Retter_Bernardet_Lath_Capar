@@ -6,6 +6,8 @@ use NetVOD\action\Action;
 use NetVOD\db\ConnectionFactory;
 use NetVOD\video\Serie;
 
+use function PHPSTORM_META\type;
+
 class DisplaySerieAction extends Action
 {
 
@@ -31,7 +33,7 @@ class DisplaySerieAction extends Action
             
             $id=0;
             foreach ($_POST as $t => $v){
-                $id=$v;
+                $id=$t;
             }
             if (!Serie::verifier($id,$_SESSION['connexion']->getID())){
                 Serie::ajouterPreference($id);

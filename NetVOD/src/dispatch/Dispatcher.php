@@ -52,6 +52,12 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
+            case 'ajouterinfo':
+                $stmt = new \NetVOD\action\AjouterPlusInfoAction();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Bienvenue sur Netvod</H1>";
                 if(isset($_SESSION['connexion'])){
@@ -81,6 +87,7 @@ class Dispatcher
             $co = <<<END
             <li><a href="index.php?action=DisplayCatalogueAction">Affichage du catalogue</a></li><BR>
             <li><a href="index.php?action=DisplaySerieEnCoursAction">Vos série en cours</a></li><BR>
+            <li><a href="index.php?action=ajouterinfo">Ajouter information à votre profil</a></li><BR>
             $string
 
             END;

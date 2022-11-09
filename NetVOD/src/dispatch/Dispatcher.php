@@ -63,6 +63,12 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
+            case 'activationToken':
+                $stmt = new \NetVOD\action\ActivationTokenAction();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Bienvenue sur Netvod</H1><br>";
                 $stmt = new \NetVOD\action\DisplayProfileAction();

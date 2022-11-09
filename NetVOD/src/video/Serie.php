@@ -60,6 +60,8 @@ class Serie
             }
             if ($t==="idserie"){
                 $idS=$v;
+            }else{
+                $idS="";
             }
         }
         $html = <<<END

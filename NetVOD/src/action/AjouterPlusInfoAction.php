@@ -37,7 +37,7 @@ class AjouterPlusInfoAction extends Action
     <li>10 : Scicence Fi</li>
     </ul>
     <label>Genre(s) : </label>
-    <input name="genre" type="text" placeholder="<genre(s)>">
+    <input name="genre" type="number" placeholder="<genre(s)>">
     <button type="submit">valider</button>
     </form>
     END;

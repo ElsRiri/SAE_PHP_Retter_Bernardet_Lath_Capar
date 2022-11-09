@@ -29,7 +29,12 @@ class DisplayEpisode extends Action
                 {$episode->render()}
                 END;
                 $id_user = $_SESSION['connexion']->getId();
-                $this->ajoutEpisodeEnCours($episode,$id_user);
+                try{
+                    $this->ajoutEpisodeEnCours($episode,$id_user);
+                }catch (\PDOException $ignored){
+
+                }
+
             } else {
                 $html .= <<<END
                 <p><strong>Vous ne pouvez pas afficher le catalogue sans vous connecter au préalable !</strong></p>

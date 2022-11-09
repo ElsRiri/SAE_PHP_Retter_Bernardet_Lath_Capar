@@ -4,9 +4,11 @@ namespace NetVOD\action;
 
 use NetVOD\video\Episode;
 
-class DisplayEpisode extends Action {
+class DisplayEpisode extends Action
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -22,12 +24,13 @@ class DisplayEpisode extends Action {
 
                 $data = $stmt->fetch(\PDO::FETCH_ASSOC);
                 //int $id=0, int $numero=0, int $duree=0, int $serie_id=0 ,string $titre="", string $resume="",string $fichier=""
-                $episode = new \NetVOD\video\Episode($data['id'],$data['numero'],$data['duree'],$data['serie_id'], $data['titre'], $data['resume'], $data['file']);
-
+                $episode = new \NetVOD\video\Episode($data['id'], $data['numero'], $data['duree'], $data['serie_id'], $data['titre'], $data['resume'], $data['file']);
                 $html = <<<END
                 {$episode->render()}
                 END;
-            }else{
+                $id_user = $_SESSION['connexion']->getId();
+                $this->ajoutEpisodeEnCours($episode,$id_user);
+            } else {
                 $html .= <<<END
                 <p><strong>Vous ne pouvez pas afficher le catalogue sans vous connecter au préalable !</strong></p>
                 END;
@@ -70,6 +73,19 @@ class DisplayEpisode extends Action {
             }
         }
         return $html;
+    }
+
+    public function ajoutEpisodeEnCours(Episode $episode,string $id_user)
+    {
+
+            $id = $episode->id;
+
+            $connexion = \NetVOD\db\ConnectionFactory::makeConnection();
+            $stmt = $connexion->prepare("insert into ep_vision values('$id','$id_user',null,null)");
+            $stmt->execute();
+
+
+
     }
 
 }

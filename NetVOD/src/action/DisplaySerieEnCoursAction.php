@@ -29,13 +29,12 @@ class DisplaySerieEnCoursAction extends \NetVOD\action\Action
                 while($resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC)){
                     $seriesUtilisateur[]=$resultatSet['serie_id'];
                 }
-
+                $html.= "Liste episode de: ".$_SESSION['connexion']->email;
                 foreach ($seriesUtilisateur as $key => $value){
                     $stmt = $connexion-> prepare("select distinct * from serie where id = ?");
                     $value = str_replace("'",'',$value);
                     $stmt -> bindParam(1,$value);
                     $stmt -> execute();
-                    $html.= "Liste episode de: ".$_SESSION['connexion']->email;
                     while ($resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC)){
                         $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
                         $html.= $serie->render();

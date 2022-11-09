@@ -36,27 +36,18 @@ class Catalogue
 
     public function tri($ordre, $attribut)
     {
-        if (gettype($attribut) == "string") {
-            if($attribut == "nb_episode"){
-                if ($ordre === 'croissant') {
-                    usort($this->series, fn($a, $b) => sizeof($a->episode) <=> sizeof($b->episode));
-                }elseif ($ordre === 'decroissant') {
-                    usort($this->series, fn($a, $b) => sizeof($b->episode) <=> sizeof($a->episode));
-                }
-            }else if ($ordre === 'croissant') {
-                usort($this->series, fn($a, $b) => $a->$attribut <=> $b->$attribut);
+        if ($attribut === "nb_episode") {
+            if ($ordre === 'croissant') {
+                usort($this->series, fn($a, $b) => sizeof($a->episode) <=> sizeof($b->episode));
             } elseif ($ordre === 'decroissant') {
-                usort($this->series, fn($a, $b) => $b->$attribut <=> $a->$attribut);
+                usort($this->series, fn($a, $b) => sizeof($b->episode) <=> sizeof($a->episode));
             }
-        } elseif (gettype($attribut) == "integer") {
-            if ($ordre == 'croissant') {
-                usort($this->series, fn($a, $b) => $a->$attribut <=> $b->$attribut);
-            } elseif ($ordre == 'decroissant') {
-                usort($this->series, fn($a, $b) => $b->$attribut <=> $a->$attribut);
-            }
-
-
+        } else if ($ordre == 'croissant') {
+            usort($this->series, fn($a, $b) => $a->$attribut <=> $b->$attribut);
+        } elseif ($ordre === 'decroissant') {
+            usort($this->series, fn($a, $b) => $b->$attribut <=> $a->$attribut);
         }
+
     }
 
 }

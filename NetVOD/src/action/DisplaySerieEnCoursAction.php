@@ -21,16 +21,26 @@ class DisplaySerieEnCoursAction extends \NetVOD\action\Action
                 $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
                 $id_user = $resultatSet['id'];
 
-                $stmt = $connexion-> prepare("select  * from ep_vision inner join serie on ep_vision.id_user = serie.id where id_user = ? group by serie.id");
+                //on récupères les id des series
+                $seriesUtilisateur=[];
+                $stmt = $connexion-> prepare("select distinct episode.serie_id from ep_vision inner join episode on ep_vision.id_ep = episode.id where ep_vision.id_user = ?");
                 $stmt -> bindParam(1,$id_user);
                 $stmt -> execute();
-                $html.= "Liste episode de: ".$_SESSION['connexion']->email;
-                while ($resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC)){
-                    $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
-                    $html.= $serie->render();
-                };
+                while($resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC)){
+                    $seriesUtilisateur[]=$resultatSet['serie_id'];
+                }
 
-
+                foreach ($seriesUtilisateur as $key => $value){
+                    $stmt = $connexion-> prepare("select distinct * from serie where id = ?");
+                    $value = str_replace("'",'',$value);
+                    $stmt -> bindParam(1,$value);
+                    $stmt -> execute();
+                    $html.= "Liste episode de: ".$_SESSION['connexion']->email;
+                    while ($resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC)){
+                        $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
+                        $html.= $serie->render();
+                    };
+                }
 
             }
 

@@ -72,9 +72,13 @@ class Episode
         </video>
         <p> Résumé : $this->resume<br> Durée : $this->duree</p>
         <form id="f1" method="post" action="index.php?action=DisplayEpisode&idepisode=$this->id">
-        <label>Note : </label>
-        <input value="5" name="Note" type="number" max="5" min="1" placeholder="<entre 1 et 5>">
-        <input value="Valider" name="Button" type="submit" />
+            <label>Note : </label>
+            <input value="5" name="Note" type="number" max="5" min="1" placeholder="<entre 1 et 5>">
+            <input value="Valider" name="Button" type="submit" /><br>
+        </form>
+        <form id="f2" method="post" action="index.php?action=DisplayEpisode&idepisode=$this->id">
+            <p>commentaire : </p><textarea maxlength="2500" rows = '10' cols = '120' name = 'text'>Votre commentaire !</textarea><br><br>
+            <input value="Envoyer" name="ButtonCom" type="submit" /><br>
         </form>
         END;
         return $html;
@@ -91,6 +95,53 @@ class Episode
         $stmt->bindParam(3, $id);
         
         $stmt->execute();
+    }
+
+    public static function commenter($idep,$commentaire):void{
+        $co = ConnectionFactory::makeConnection();
+        $u = $_SESSION['connexion'];
+        $id = $u->getId();
+        $email = $u->email;
+        $stmt = $co->prepare('UPDATE ep_vision SET commentaire=? WHERE id_ep=? AND id_user=? ');
+        $stmt->bindParam(1, $commentaire);
+        $stmt->bindParam(2, $idep);
+        $stmt->bindParam(3, $id);
+        
+        $stmt->execute();
+    }
+
+    public static function verifierNote($idep,$user):bool{
+        $trouver=false;
+        $co = ConnectionFactory::makeConnection();
+
+        $stmt = $co->prepare("SELECT id_ep FROM ep_vision WHERE id_user=? AND note!=NULL");
+        $stmt->bindParam(1,$user);
+        $stmt->execute();
+
+        while ($data = $stmt->fetch()){
+            if ($idep==$data[0]){
+                $trouver=true;
+            }
+        }
+
+        return $trouver;
+    }
+
+    public static function verifierCom($idep,$user):bool{
+        $trouver=false;
+        $co = ConnectionFactory::makeConnection();
+
+        $stmt = $co->prepare("SELECT id_ep FROM ep_vision WHERE id_user=? AND commentaire!=NULL");
+        $stmt->bindParam(1,$user);
+        $stmt->execute();
+
+        while ($data = $stmt->fetch()){
+            if ($idep==$data[0]){
+                $trouver=true;
+            }
+        }
+
+        return $trouver;
     }
 
 }

@@ -20,24 +20,32 @@ class DisplayCatalogueAction extends Action
         if ($this->http_method == "GET") {
             if (!isset($_SESSION['connexion']->email)) {
                 $catalogue = new Catalogue();
-                //query string pour le tri
-                $trie = "";
-                if (isset($_GET['trie'])) {
-                    $trie = "&trie=" . $_GET['trie'];
+
+                //tri le catalogue
+                if (isset($_GET['attribut']) && isset($_GET['tri'])) {
+                    $tri = $_GET['tri'];
+                    $attribut = $_GET['attribut'];
+                    $catalogue->tri($tri, $attribut);
                 }
-                $
+
                 $html = <<<END
-                <form id="trie" method="post" action="index.php?action=DisplayCatalogueAction$trie"> 
-                    <input type="radio" id="titre1" name="trie" value="titre"> 
-                    <label for="titre1">titre</label>
-                    <input type="radio" id="date_ajout" name="trie" value="date_ajout"> 
-                    <label for="date_ajout">date ajout</label>
-                    <input type="radio" id="nbEpisode" name="trie" value="nombre_episode">
-                    <label for="nbEpisode">nombre episode</label>
+                <form id="tri" method="post" action="index.php?action=DisplayCatalogueAction"> 
+                    <select name="attribut" id="tri">
+                        <option value="titre">titre</option>
+                        <option value="date_ajout">date_ajout</option>
+                        <option value="nb_episode">nb_episode</option>
+                        <option value="annee">annee</option>
+                    </select>
+                    <input type="radio" id="decroissant" name="tri" value="decroissant" checked>
+                    <label for="annee">decroissant</label>
+                    <input type="radio" id="croissant" name="tri" value="croissant">
+                    <label for="annee">croissant</label>
                     <button type="submit">Envoyer</button>
                 </form>
                 {$catalogue->render()}
                 END;
+
+
             } else {
                 $html .= <<<END
                 <p><strong>Vous ne pouvez pas afficher le catalogue sans vous connecter au préalable !</strong></p>
@@ -45,9 +53,9 @@ class DisplayCatalogueAction extends Action
             }
 
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-
+            header('Location: http://localhost/sae/NetVOD/index.php?action=DisplayCatalogueAction' . '&attribut=' . $_POST['attribut'] . '&tri=' . $_POST['tri']);
         }
+
         return $html;
     }
 

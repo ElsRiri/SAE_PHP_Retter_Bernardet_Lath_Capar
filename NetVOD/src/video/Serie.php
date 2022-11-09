@@ -68,6 +68,7 @@ class Serie
         <h4>Titre : $this->titre</h4>
         <p>Description : $this->descriptif<p>
         <br> Note : {$this->calculnote()}/5
+        <br> <a href = "index.php?action=DisplayCommentaire&idserie=$this->id"> Voir les commentaires </a>
         <br>
         <img src="img/$this->img" alt ="img de la série"></img>
         <br><i> Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
@@ -135,4 +136,34 @@ class Serie
         else return "?";
     }
     
+
+    public function liste_commentaire(){
+        $string ="Liste des commentaires: <br>";
+        $sql = "select user.email ,commentaire, episode.numero  
+        from serie, ep_vision, episode, user
+        where serie.id=episode.serie_id
+        and ep_vision.id_ep=episode.id
+        and user.id=ep_vision.id_user
+        and commentaire<>'NULL'
+        and serie.id=?";
+
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
+
+            while ($data = $stmt->fetch()){
+                $string.="<br><font color='0000FF'> $data[0] </font>: <i>$data[1]</i> (episode n° $data[2]) <br>";
+            } 
+        if ($string == "Liste des commentaires: <br>") $string .= "<i>pas de commentaire pour le moment</i><br>";
+
+        $string.= <<<END
+        <a href = "index.php?action=DisplaySerieAction&idserie=$this->id"> retour </a>
+        END;
+
+        return $string;
+    }
+
+
+
+
 }

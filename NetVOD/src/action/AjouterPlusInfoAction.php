@@ -51,7 +51,6 @@ class AjouterPlusInfoAction extends Action
                 $pdo = ConnectionFactory::makeConnection();
                 $co = $_SESSION['connexion'];
                 $email = $co->email;
-                echo $email;
 
                 $stmtup = $pdo->prepare('UPDATE user SET nom = ?, prenom = ?, id_genre = ? WHERE email = ?');
                 $stmtup->bindParam(1, $_POST['nom']);

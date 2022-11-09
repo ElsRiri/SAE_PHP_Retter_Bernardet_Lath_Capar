@@ -29,6 +29,10 @@ class DisplayCatalogueAction extends Action
                 }
 
                 $html = <<<END
+                <form id="recherche" method="post" action="index.php?action=DisplayCatalogueAction">
+                <label>Recherche : </label>
+                <input name="recherche" type="text" placeholder="saisir mots...">
+                </form>
                 <form id="tri" method="post" action="index.php?action=DisplayCatalogueAction"> 
                     <select name="attribut" id="tri">
                         <option value="titre">titre</option>
@@ -53,6 +57,18 @@ class DisplayCatalogueAction extends Action
             }
 
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $search = $_POST['recherche'];
+
+            $catalogue = new \NetVOD\video\Catalogue();
+            $catalogue->insertRecherche($search);
+            $html = <<<END
+                <form id="recherche" method="post" action="index.php?action=DisplayCatalogueAction">
+                <label>Recherche : </label>
+                <input name="recherche" type="text" placeholder="saisir mots...">
+                </form>
+                {$catalogue->render()}
+            END;
+
             header('Location: http://localhost/sae/NetVOD/index.php?action=DisplayCatalogueAction' . '&attribut=' . $_POST['attribut'] . '&tri=' . $_POST['tri']);
         }
 

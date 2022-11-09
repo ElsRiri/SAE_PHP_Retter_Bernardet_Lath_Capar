@@ -59,12 +59,9 @@ class Dispatcher
                 break;
 
             default :
-                $str = "<H1>Bienvenue sur Netvod</H1>";
-                if(isset($_SESSION['connexion'])){
-                    $str.= 'vous etes connecté, '.$_SESSION['connexion']->email;
-                }else{
-                    $str.= 'vous etes pas connecté';
-                }
+                $str = "<H1>Bienvenue sur Netvod</H1><br>";
+                $stmt = new \NetVOD\action\DisplayProfileAction();
+                $str .= $stmt->execute();
                 $this->renderPage($str);
                 break;
         }

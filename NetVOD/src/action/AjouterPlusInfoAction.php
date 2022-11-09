@@ -52,9 +52,12 @@ class AjouterPlusInfoAction extends Action
                 $co = $_SESSION['connexion'];
                 $email = $co->email;
 
+                $prenom = filter_var($_POST['prenom'], FILTER_SANITIZE_STRING);
+                $nom = filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
+
                 $stmtup = $pdo->prepare('UPDATE user SET nom = ?, prenom = ?, id_genre = ? WHERE email = ?');
-                $stmtup->bindParam(1, $_POST['nom']);
-                $stmtup->bindParam(2, $_POST['prenom']);
+                $stmtup->bindParam(1, $nom);
+                $stmtup->bindParam(2, $prenom);
                 $stmtup->bindParam(3, $_POST['genre']);
                 $stmtup->bindParam(4, $email);
                 $stmtup->execute();

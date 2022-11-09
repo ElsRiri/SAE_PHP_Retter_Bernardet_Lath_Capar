@@ -2,7 +2,6 @@
 
 namespace NetVOD\action;
 
-use NetVOD\action\Action;
 use NetVOD\exception\AuthException;
 use NetVOD\video\Catalogue;
 
@@ -21,18 +20,19 @@ class DisplayCatalogueAction extends Action
         if ($this->http_method == "GET") {
             if (!isset($_SESSION['connexion']->email)) {
                 $catalogue = new Catalogue();
-                //query string pour le trie
+                //query string pour le tri
                 $trie = "";
                 if (isset($_GET['trie'])) {
-                    $trie = "&trie=".$_GET['trie'];
+                    $trie = "&trie=" . $_GET['trie'];
                 }
+                $
                 $html = <<<END
                 <form id="trie" method="post" action="index.php?action=DisplayCatalogueAction$trie"> 
                     <input type="radio" id="titre1" name="trie" value="titre"> 
                     <label for="titre1">titre</label>
-                    <input type="radio" id="date_ajout" name="trie" value="date ajout"> 
+                    <input type="radio" id="date_ajout" name="trie" value="date_ajout"> 
                     <label for="date_ajout">date ajout</label>
-                    <input type="radio" id="nbEpisode" name="trie" value="nombre episode">
+                    <input type="radio" id="nbEpisode" name="trie" value="nombre_episode">
                     <label for="nbEpisode">nombre episode</label>
                     <button type="submit">Envoyer</button>
                 </form>
@@ -49,10 +49,6 @@ class DisplayCatalogueAction extends Action
 
         }
         return $html;
-    }
-
-    public function trie(string $trie){
-
     }
 
 

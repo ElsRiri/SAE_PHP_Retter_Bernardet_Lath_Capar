@@ -30,4 +30,9 @@ class Catalogue {
 
         return $res."</ul>";
     }
+
+    public function tri($trie,$attribut)
+    {
+
+    }
 }

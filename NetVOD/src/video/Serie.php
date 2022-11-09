@@ -67,6 +67,8 @@ class Serie
         $html = <<<END
         <h4>Titre : $this->titre</h4>
         <p>Description : $this->descriptif<p>
+        <br> Note : {$this->calculnote()}/5
+        <br>
         <img src="img/$this->img" alt ="img de la série"></img>
         <br><i> Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
         <br>
@@ -115,6 +117,22 @@ class Serie
         }
 
         return $trouver;
+    }
+
+    public function calculnote(){
+        $sql="select AVG (ep_vision.note)
+        from serie, episode, ep_vision
+        where serie.id=episode.serie_id
+        and episode.id=ep_vision.id_ep
+        and serie.id=?";
+
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
+        $data = $stmt->fetch();
+        
+        if (isset($data[0])) return round($data[0],2);
+        else return "?";
     }
     
 }

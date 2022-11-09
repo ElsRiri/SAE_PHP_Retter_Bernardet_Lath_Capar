@@ -35,21 +35,29 @@ class DisplayEpisode extends Action {
         }elseif ($this->http_method=="POST") {
             if (isset($_SESSION['connexion'])){
                 $note=0;
-                $id=0;
+                $idep=0;
+                $com = "";
                 foreach ($_POST as $t => $v){
                     if ($t==="Note"){
-                        echo $t;
-                        echo $v;
                         $note=$v;
                     }
                 }
                 foreach ($_GET as $t => $v){
-                    $id=$v;
+                    if ($t=="idepisode"){
+                        $idep=$v;
+                    }
                 }
-                //if (!Serie::verifier($id,$_SESSION['connexion']->getID())){
-                    echo "oui";
-                Episode::noterEpisode($id,$note);
-                //}
+                
+                if (isset($_POST['Note'])){
+                    Episode::noterEpisode($idep,$note);
+                }elseif (isset($_POST['ButtonCom'])){
+                    foreach ($_POST as $t => $v){
+                        if ($t=="text"){
+                            $com = $v;
+                        }
+                    }
+                    Episode::commenter($idep,$com);
+                }
                 $idEp = $_GET['idepisode'];
                 $sql = "select * from episode where episode.id = ?";
                 $stmt = \NetVOD\db\ConnectionFactory::$db->prepare($sql);

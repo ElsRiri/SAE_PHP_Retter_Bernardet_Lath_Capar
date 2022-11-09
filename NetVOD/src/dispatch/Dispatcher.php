@@ -57,6 +57,11 @@ class Dispatcher
                 $str = $stmt->execute();
                 $this->renderPage($str);
                 break;
+            case 'DisplayCommentaire':
+                $stmt = new \NetVOD\action\DisplayCommentaire();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
 
             default :
                 $str = "<H1>Bienvenue sur Netvod</H1><br>";

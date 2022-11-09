@@ -2,6 +2,8 @@
 
 namespace NetVOD\video;
 
+use NetVOD\db\ConnectionFactory;
+
 class Episode
 {
     protected int $id,$numero,$duree,$serie_id;
@@ -69,7 +71,26 @@ class Episode
             <source src="video/$vid" type="video/mp4">
         </video>
         <p> Résumé : $this->resume<br> Durée : $this->duree</p>
+        <form id="f1" method="post" action="index.php?action=DisplayEpisode&idepisode=$this->id">
+        <label>Note : </label>
+        <input value="5" name="Note" type="number" max="5" min="1" placeholder="<entre 1 et 5>">
+        <input value="Valider" name="Button" type="submit" />
+        </form>
         END;
         return $html;
     }
+
+    public static function noterEpisode($idep,$note):void{
+        $co = ConnectionFactory::makeConnection();
+        $u = $_SESSION['connexion'];
+        $id = $u->getId();
+        $email = $u->email;
+        $stmt = $co->prepare('UPDATE ep_vision SET note=? WHERE id_ep=? AND id_user=? ');
+        $stmt->bindParam(1, $note);
+        $stmt->bindParam(2, $idep);
+        $stmt->bindParam(3, $id);
+        
+        $stmt->execute();
+    }
+
 }

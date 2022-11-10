@@ -198,6 +198,8 @@ URL :
 
 18. accès direct à l’épisode à visionner lorsque l’on visualise une série qui est dans la liste « en cours »
 
+(Victor Lath)
+
 URL :
 
 
@@ -214,5 +216,7 @@ Lorsqu’un utilisateur a oublié son mot de passe, il peut accéder à une fonc
 d’un nouveau mot de passe. Pour cela, il fourni son identifiant (@mail) et une url contenant un
 token unique, aléatoire et éphémère est générée. En cliquant sur cette url, l’utilisateur accès à
 un formulaire lui permettant de saisir un nouveau mot de passe.
+
+(Guillaume Retter)
 
 URL :

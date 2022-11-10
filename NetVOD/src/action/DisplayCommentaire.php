@@ -1,4 +1,5 @@
 <?php
+
 namespace NetVOD\action;
 
 class DisplayCommentaire extends Action {

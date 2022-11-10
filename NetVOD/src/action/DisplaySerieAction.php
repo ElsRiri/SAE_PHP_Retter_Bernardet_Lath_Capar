@@ -17,13 +17,17 @@ class DisplaySerieAction extends Action
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $idSerie = $_GET['idserie'];
             $connexion = ConnectionFactory::makeConnection();
-            $stmt = $connexion->prepare("SELECT * from serie WHERE id = ?");
+            $stmt = $connexion->prepare("select serie.id, titre, descriptif, img, annee, date_ajout, genre.libelle_genre, public.libelle_public
+            from serie, genre, public
+            where serie.id_public=public.id
+            and serie.no_genre=genre.id_genre
+            and serie.id=?");
             $stmt->bindParam(1, $idSerie);
             $stmt->execute();
-            $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $data = $stmt->fetch();
             $serie = null;
-            if (count($resultatSet) >= 1) {
-                $serie = new Serie($resultatSet['id'], $resultatSet['titre'], $resultatSet['descriptif'], $resultatSet['img'], $resultatSet['annee'], $resultatSet['date_ajout']);
+            if (count($data) >= 1) {
+                $serie = new Serie($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
             }
             $s = <<<END
             {$serie->render()}

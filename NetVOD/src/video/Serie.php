@@ -77,9 +77,12 @@ class Serie
                 $idS = "";
             }
         }
+        $public = str_replace("_"," ", $this->public);
         $html = <<<END
         <h4>Titre : $this->titre</h4>
         <p>Description : $this->descriptif<p>
+        <br> Genre : $this->genre
+        <br> Public visé : $public
         <br> Note : {$this->calculnote()}/5
         <br> <a href = "index.php?action=DisplayCommentaire&idserie=$this->id"> Voir les commentaires </a>
         <br>
@@ -268,12 +271,5 @@ class Serie
 
         return $string;
     }
-
-    public function TriGenre(){
-        
-    }
-
-
-
 
 }

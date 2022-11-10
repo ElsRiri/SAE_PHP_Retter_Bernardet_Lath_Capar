@@ -77,7 +77,7 @@ class Episode
             <input value="Valider" name="Button" type="submit" /><br>
         </form>
         <form id="f2" method="post" action="index.php?action=DisplayEpisode&idepisode=$this->id">
-            <p>commentaire : </p><textarea maxlength="2500" rows = '10' cols = '120' name = 'text'>Votre commentaire !</textarea><br><br>
+            <p>commentaire : </p><textarea maxlength="2500" rows = '10' cols = '120' name = 'text' class ="jpp">Votre commentaire !</textarea><br><br>
             <input value="Envoyer" name="ButtonCom" type="submit" /><br
         </form>
         END;

@@ -75,10 +75,12 @@ class Serie
         <br>
         <form method="post" action="index.php?action=$display&idserie=$idS">
             <input type="submit" name="$this->id"
-                    class="button" value="Favorie" />
+                    class="button" value="Ajouter / Retirer des Favoris" />
         </form>
-
         END;
+
+
+
 
         foreach ($this->episode as $value){
             $html .= <<<END
@@ -86,6 +88,30 @@ class Serie
             END;
         }
         return $html;
+    }
+
+    public static function checkPreference($serie) : bool
+    {
+        $co = ConnectionFactory::makeConnection();
+        $email = $_SESSION['connexion']->email;
+        $stmt = $co->prepare('SELECT * FROM user WHERE email = ?');
+        $stmt->bindParam(1,$email);
+        $stmt->execute();
+        $data = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $id = $data['id'];
+        $stmt = $co->prepare('SELECT * FROM preference WHERE id_user = ? AND id_serie = ?');
+        $stmt->bindParam(1,$id);
+        $stmt->bindParam(2, $serie);
+        $stmt->execute();
+        $nb = $stmt->rowCount();
+        if ($nb != 0){
+            return true;
+        } else {
+            return false;
+        }
+
+
+
     }
 
     public static function ajouterPreference($serie)
@@ -98,6 +124,21 @@ class Serie
         $dataid = $stmtid->fetch(\PDO::FETCH_ASSOC);
         $id = $dataid['id'];
         $stmt = $co->prepare('INSERT INTO preference VALUES (?, ?)');
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $serie);
+        $stmt->execute();
+    }
+
+    public static function retirerPreference($serie)
+    {
+        $co = ConnectionFactory::makeConnection();
+        $email = $_SESSION['connexion']->email;
+        $stmtid = $co->prepare('SELECT * FROM user WHERE email = ?');
+        $stmtid->bindParam(1,$email);
+        $stmtid->execute();
+        $dataid = $stmtid->fetch(\PDO::FETCH_ASSOC);
+        $id = $dataid['id'];
+        $stmt = $co->prepare('DELETE FROM preference WHERE id_user = ? AND id_serie = ?');
         $stmt->bindParam(1, $id);
         $stmt->bindParam(2, $serie);
         $stmt->execute();

@@ -17,27 +17,31 @@ class DisplaySerieAction extends Action
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $idSerie = $_GET['idserie'];
             $connexion = ConnectionFactory::makeConnection();
-            $stmt = $connexion -> prepare("SELECT * from serie WHERE id = ?");
-            $stmt -> bindParam(1,$idSerie);
-            $stmt -> execute();
+            $stmt = $connexion->prepare("SELECT * from serie WHERE id = ?");
+            $stmt->bindParam(1, $idSerie);
+            $stmt->execute();
             $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
             $serie = null;
-            if(count($resultatSet)>=1){
-                $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
+            if (count($resultatSet) >= 1) {
+                $serie = new Serie($resultatSet['id'], $resultatSet['titre'], $resultatSet['descriptif'], $resultatSet['img'], $resultatSet['annee'], $resultatSet['date_ajout']);
             }
             $s = <<<END
             {$serie->render()}
             END;
-            
-        } elseif ($_SERVER['REQUEST_METHOD'] == "POST"){
-            
-            $id=0;
-            foreach ($_POST as $t => $v){
-                $id=$t;
+
+        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $id = 0;
+            foreach ($_POST as $t => $v) {
+                $id = $t;
             }
-            if (!Serie::verifier($id,$_SESSION['connexion']->getID())){
+            if (Serie::checkPreference($id)) {
+                Serie::retirerPreference($id);
+            } else {
                 Serie::ajouterPreference($id);
             }
+
+
             
 
             $idSerie = $_GET['idserie'];

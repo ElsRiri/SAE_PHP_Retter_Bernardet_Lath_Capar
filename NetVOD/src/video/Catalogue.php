@@ -11,7 +11,7 @@ class Catalogue
     public function __construct()
     {
         $this->series = [];
-        $sql = "select serie.id, titre, descriptif, img, annee, date_ajout, genre.libelle_genre, public.libelle_public
+        $sql = "select serie.id, titre, descriptif, img, annee, date_ajout, genre.id_genre, public.id
         from serie, genre, public
         where serie.id_public=public.id
         and serie.no_genre=genre.id_genre";

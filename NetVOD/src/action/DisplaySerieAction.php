@@ -17,7 +17,7 @@ class DisplaySerieAction extends Action
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $idSerie = $_GET['idserie'];
             $connexion = ConnectionFactory::makeConnection();
-            $stmt = $connexion->prepare("select serie.id, titre, descriptif, img, annee, date_ajout, genre.libelle_genre, public.libelle_public
+            $stmt = $connexion->prepare("select serie.id, titre, descriptif, img, annee, date_ajout, genre.id_genre,public.id 
             from serie, genre, public
             where serie.id_public=public.id
             and serie.no_genre=genre.id_genre
@@ -46,7 +46,6 @@ class DisplaySerieAction extends Action
 
 
             $dernier_episode = Serie::dernierEpisodeEnCours($id);
-
             if(is_null($dernier_episode)){
                 $idSerie = $_GET['idserie'];
                 $connexion = ConnectionFactory::makeConnection();
@@ -62,7 +61,7 @@ class DisplaySerieAction extends Action
             {$serie->render()}
             END;
             }else{
-                $s=$dernier_episode->render();
+                $s.=$dernier_episode->render();
             }
 
 

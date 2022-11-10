@@ -89,6 +89,8 @@ class Serie
         <form method="post" action="index.php?action=$display&idserie=$idS">
             <input type="submit" name="$this->id"
                     class="button" value="Ajouter / Retirer des Favoris" />
+             <input type="submit" name="$this->id"
+                    class="button" value="Regarder dernier épisode en cours" />
         </form>
         END;
 

@@ -81,6 +81,13 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
+            case 'deconnexion':
+                "oui";
+                $stmt = new \NetVOD\action\DeconnexionAction();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Bienvenue sur Netvod</H1><br>";
                 $stmt = new \NetVOD\action\DisplayProfileAction();
@@ -105,6 +112,7 @@ class Dispatcher
             }
             $string .= "</ul>";
             $co = <<<END
+            <li><a href="index.php?action=deconnexion">Déconnexion</a></li><BR>
             <li><a href="index.php?action=DisplayCatalogueAction">Affichage du catalogue</a></li><BR>
             <li><a href="index.php?action=DisplaySerieEnCoursAction">Vos séries en cours</a></li><BR>
             <li><a href="index.php?action=DisplaySerieTermine">Vos séries terminées</a></li><BR>

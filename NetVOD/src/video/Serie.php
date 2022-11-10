@@ -92,7 +92,7 @@ class Serie
         </form>
         <form method="post" action="index.php?action=$display&idserie=$idS">
              <input type="submit" name="$this->id"
-                    class="button" value="last_episode" />
+                    class="button" value="Regarder dernier episode en cours" />
         </form>
         END;
 

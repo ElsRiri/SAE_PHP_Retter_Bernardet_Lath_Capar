@@ -21,7 +21,7 @@ informations et données personnelles : listes, profil etc...
 
 (Nicolas Bernardet)
 
-URL : 
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=identification
 
 
 2. Inscription sur la plateforme :

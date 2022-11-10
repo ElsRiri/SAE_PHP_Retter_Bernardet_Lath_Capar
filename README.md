@@ -203,6 +203,8 @@ URL :
 
 19. Tri dans le catalogue selon la note moyenne
 
+(Sila Capar, Victor Lath, Nicolas Bernardet, Guillaume Retter)
+
 URL :
 
 

@@ -69,6 +69,12 @@ class Dispatcher
                 $this->renderPage($str);
                 break;
 
+            case 'DisplaySerieTermine':
+                $stmt = new \NetVOD\action\DisplaySerieTermine();
+                $str = $stmt->execute();
+                $this->renderPage($str);
+                break;
+
             default :
                 $str = "<H1>Bienvenue sur Netvod</H1><br>";
                 $stmt = new \NetVOD\action\DisplayProfileAction();

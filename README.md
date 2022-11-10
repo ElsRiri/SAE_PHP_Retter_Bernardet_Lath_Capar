@@ -98,6 +98,7 @@ PS : Etre connecté
 Lorsqu’un épisode est visionné, la série contenant l’épisode est automatiquement ajoutée à la
 liste « en cours » de l’utilisateur ; Cette liste apparaît sur la page d’accueil de l’utilisateur, de
 façon similaire à la liste de préférence.
+- Cette fonctionnalité se trouve dans la catégorie "Vos séries en cours"
 
 (Victor Lath)
 
@@ -169,7 +170,7 @@ URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/index.php?action=Display
 
 Lors de l’affichage du catalogue, possibilité de trier la liste affichée selon différents critères :
 titre, date d’ajout sur la plateforme, nombre d’épisodes ...
-
+- Cette option se trouve dans la catégorie "Catalogue"
 (Victor Lath)
 
 URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/index.php?action=DisplayCatalogueAction
@@ -200,21 +201,23 @@ PS : Cliquer sur le bouton Ajouter/Retirer des favs
 Lorsque tous les épisodes d’une série ont été visualisés, la série est déplacée de la liste « en
 cours » à la liste « déjà visionnées » ; Dans sa page d’accueil, l’utilisateur peut accéder à la
 visualisation de cette liste.
-
+- Les séries déjà visionnés se trouve dans la catégorie "Vos séries terminées".
 (Victor Lath)
 
 URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/index.php?action=DisplaySerieTermine
 
 
 18. accès direct à l’épisode à visionner lorsque l’on visualise une série qui est dans la liste « en cours »
+- on peut accéder au dernier épisode regardé de la série à partir du catalogue et en cliquant ensuite sur la série, un bouton permettra d'accéder au dernier episode
 
 (Victor Lath)
+
 
 URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/index.php?action=DisplaySerieEnCoursAction
 
 
 19. Tri dans le catalogue selon la note moyenne
-
+Cette option ce trouve dans le menu déroulant dans la catégorie catalogue 
 (Sila Capar, Victor Lath, Nicolas Bernardet, Guillaume Retter)
 
 URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/index.php?action=DisplayCatalogueAction

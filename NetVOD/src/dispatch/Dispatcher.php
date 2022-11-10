@@ -104,7 +104,7 @@ class Dispatcher
         $co = "";
         if (isset($_SESSION['connexion'])){
             $tPREF = $_SESSION['connexion']->getPreference();
-            $string = "<h3>Séries preférées</h3><ul>";
+            $string = "<h3>Séries preférées</h3><ul class = 'test'>";
             foreach ($tPREF as $t => $v) {
                 $string .= <<<END
                 <li><a href="index.php?action=DisplaySerieAction&idserie=$v->id">$v->titre</a></li>
@@ -126,6 +126,7 @@ class Dispatcher
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" />
     <title>NetVOD</title>
 </head>
 <body>

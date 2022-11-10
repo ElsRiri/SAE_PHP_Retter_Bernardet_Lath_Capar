@@ -1,0 +1,58 @@
+body{
+    background-color:#051C24 ;
+    color : white;
+    text-align: justify;
+}
+
+a{
+    color: #04BBFF;
+    text-decoration: none;
+    transition-duration: 0.2s;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.test{
+    list-style-type: decimal;
+    color : #0594D0;
+}
+
+.test li a {
+    color : #04BBFF;
+    transition-duration: 0.2s;
+}
+
+.test li a:hover {
+    color:red;
+    transition-duration: 0.2s;
+    text-decoration: underline;
+}
+
+a:hover{
+    color:red;
+    transition-duration: 0.2s;
+    text-decoration: underline;
+}
+
+
+figure {
+    float: left;
+    width: 30%;
+    text-align: center;
+    font-style: italic;
+    font-size: smaller;
+    text-indent: 0;
+    border: thin silver solid;
+    margin: 0.4em;
+    padding: 0.4em;
+  }
+  img{
+    width: 200px;
+    max-height: 100px;
+  }
+
+  div{
+    font-style: italic;
+  }

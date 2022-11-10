@@ -141,12 +141,13 @@ class Serie
         }
         $html = <<<END
         <h4>Titre : $this->titre</h4>
+        <div>
         <p>Description : $this->descriptif<p>
-        <br> Note : {$this->calculnote()}/5
+        <br> Note : {$this->calculnote()}/5<div>
         <br> <a href = "index.php?action=DisplayCommentaire&idserie=$this->id"> Voir les commentaires </a>
         <br>
         <img src="img/$this->img" alt ="img de la série"></img>
-        <br><i> Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
+        <br>Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
         <br>
         <form method="post" action="index.php?action=$display&idserie=$idS">
             <input type="submit" name="$this->id"

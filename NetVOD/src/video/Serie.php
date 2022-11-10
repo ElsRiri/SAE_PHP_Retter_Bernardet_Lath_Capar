@@ -22,7 +22,7 @@ class Serie
      * @param int $id_public
      * @param array $ep
      */
-    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "",int $no_genre = 0, int $id_public = 0, array $ep = [])
+    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "", int $no_genre = 0, int $id_public = 0, array $ep = [])
     {
         $this->id = $id;
         $this->titre = $titre;
@@ -35,6 +35,7 @@ class Serie
         $this->episode = $this->insertEpisode();
 
     }
+
     public function __get(string $at): mixed
     {
         if (property_exists($this, $at)) {
@@ -44,32 +45,36 @@ class Serie
 
     }
 
-    public function __set(string $at,mixed $val):void {
-        if ( property_exists ($this, $at) ) {
+    public function __set(string $at, mixed $val): void
+    {
+        if (property_exists($this, $at)) {
             $this->$at = $val;
         } else throw new \Exception ("$at: invalid property");
     }
-    public function insertEpisode():array{
+
+    public function insertEpisode(): array
+    {
         $sql = "select * from episode where episode.serie_id = ?";
         $stmt = \NetVOD\db\ConnectionFactory::$db->prepare($sql);
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
-        while ($data = $stmt->fetch(\PDO::FETCH_ASSOC)){
-            $tab[]=new \NetVOD\video\Episode($data['id'], $data['numero'], $data['duree'], $data['serie_id'], $data['titre'], $data['resume'], $data['file']);
+        while ($data = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            $tab[] = new \NetVOD\video\Episode($data['id'], $data['numero'], $data['duree'], $data['serie_id'], $data['titre'], $data['resume'], $data['file']);
         }
         return $tab;
     }
-    
 
-    public function render():string {
-        foreach ($_GET as $t => $v){
-            if ($t==="action"){
-                $display=$v;
+
+    public function render(): string
+    {
+        foreach ($_GET as $t => $v) {
+            if ($t === "action") {
+                $display = $v;
             }
-            if ($t==="idserie"){
-                $idS=$v;
-            }else{
-                $idS="";
+            if ($t === "idserie") {
+                $idS = $v;
+            } else {
+                $idS = "";
             }
         }
         $html = <<<END
@@ -88,9 +93,7 @@ class Serie
         END;
 
 
-
-
-        foreach ($this->episode as $value){
+        foreach ($this->episode as $value) {
             $html .= <<<END
             <li> <a href = "index.php?action=DisplayEpisode&idepisode=$value->id">$value->numero - $value->titre</a>
             END;
@@ -98,28 +101,82 @@ class Serie
         return $html;
     }
 
-    public static function checkPreference($serie) : bool
+    public static function checkPreference($serie): bool
     {
         $co = ConnectionFactory::makeConnection();
         $email = $_SESSION['connexion']->email;
         $stmt = $co->prepare('SELECT * FROM user WHERE email = ?');
-        $stmt->bindParam(1,$email);
+        $stmt->bindParam(1, $email);
         $stmt->execute();
         $data = $stmt->fetch(\PDO::FETCH_ASSOC);
         $id = $data['id'];
         $stmt = $co->prepare('SELECT * FROM preference WHERE id_user = ? AND id_serie = ?');
-        $stmt->bindParam(1,$id);
+        $stmt->bindParam(1, $id);
         $stmt->bindParam(2, $serie);
         $stmt->execute();
         $nb = $stmt->rowCount();
-        if ($nb != 0){
+        if ($nb != 0) {
             return true;
         } else {
             return false;
         }
 
 
+    }
 
+    public function renderEnteteEpisode(): string
+    {
+        foreach ($_GET as $t => $v) {
+            if ($t === "action") {
+                $display = $v;
+            }
+            if ($t === "idserie") {
+                $idS = $v;
+            } else {
+                $idS = "";
+            }
+        }
+        $html = <<<END
+        <h4>Titre : $this->titre</h4>
+        <p>Description : $this->descriptif<p>
+        <br> Note : {$this->calculnote()}/5
+        <br> <a href = "index.php?action=DisplayCommentaire&idserie=$this->id"> Voir les commentaires </a>
+        <br>
+        <img src="img/$this->img" alt ="img de la série"></img>
+        <br><i> Année : $this->annee - Ajoutée sur la plateforme le $this->date_ajout</i>
+        <br>
+        <form method="post" action="index.php?action=$display&idserie=$idS">
+            <input type="submit" name="$this->id"
+                    class="button" value="Ajouter / Retirer des Favoris" />
+        </form>
+        END;
+        return $html;
+    }
+
+
+    public function renderUnEpisode(string $id_episode):string
+    {
+        $html ="";
+        foreach ($_GET as $t => $v){
+            if ($t==="action"){
+                $display=$v;
+            }
+            if ($t==="idserie"){
+                $idS=$v;
+            }else{
+                $idS="";
+            }
+        }
+
+        foreach($this->episode as $key => $value){
+            if($value->id == $id_episode){
+                $html .= <<<END
+            <li> <a href = "index.php?action=DisplayEpisode&idepisode=$value->id">$value->numero - $value->titre</a>
+            END;
+            }
+        }
+
+        return $html;
     }
 
     public static function ajouterPreference($serie)

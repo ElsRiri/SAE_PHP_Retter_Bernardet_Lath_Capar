@@ -91,7 +91,7 @@ class Dispatcher
         $co = "";
         if (isset($_SESSION['connexion'])){
             $tPREF = $_SESSION['connexion']->getPreference();
-            $string = "<ul>";
+            $string = "<h3>Séries preférées</h3><ul>";
             foreach ($tPREF as $t => $v) {
                 $string .= <<<END
                 <li><a href="index.php?action=DisplaySerieAction&idserie=$v->id">$v->titre</a></li>

@@ -21,7 +21,7 @@ informations et données personnelles : listes, profil etc...
 
 (Nicolas Bernardet)
 
-URL : 
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=identification
 
 
 2. Inscription sur la plateforme :
@@ -32,7 +32,7 @@ son couple identifiant/mot de passe.
 
 (Nicolas Bernardet)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=inscription
 
 
 3. Affichage du catalogue de séries :
@@ -43,7 +43,7 @@ série, une image représentative.
 
 (Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 4. Affichage détaillé d’une série et de la liste de ses épisodes :
@@ -55,7 +55,7 @@ image.
 
 (Victor Lath, Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieAction&idserie=2
 
 
 5. Affichage/visionnage d’un épisode d’une série :
@@ -65,7 +65,7 @@ durée.
 
 (Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayEpisode&idepisode=6
 
 
 6. Ajout d’une série dans la liste de préférence d’un utilisateur :
@@ -75,7 +75,9 @@ travers d’un bouton « ajouter à mes préférences ».
 
 (Nicolas Bernardet / Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieAction&idserie=2
+
+PS : Cliquer sur ajouter aux favoris après avoir cliqué sur l'url
 
 
 7. Page d’accueil d’un utilisateur : afficher ses séries préférées
@@ -87,7 +89,9 @@ La page d’accueil est affichée automatiquement après le login, ou par click 
 
 (Guillaume Retter / Nicolas Bernardet)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php
+
+PS : Etre connecté
 
 
 8. Lors du visionnage d’un épisode, ajouter automatiquement la série à la liste « en cours » de l’utilisateur
@@ -97,7 +101,7 @@ façon similaire à la liste de préférence.
 
 (Victor Lath)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieEnCoursAction
 
 
 9. Lors du visionnage d’un épisode d’une série, noter et commenter la série
@@ -107,7 +111,9 @@ seul commentaire par utilisateur pour une série.
 
 (Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayEpisode&idepisode=6
+
+PS : note en bas
 
 
 10. Lors de l’affichage d’une série, indiquer sa note moyenne et donner accès aux commentaires
@@ -117,7 +123,9 @@ commentaires déposés par les utilisateurs ayant visionné la série.
 
 (Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieAction&idserie=2
+
+PS : Cliquer sur voir les commentaires
 
 
 
@@ -134,7 +142,7 @@ page comme résultat de l’inscription.
 
 (Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=inscription
 
 
 17. gestion du profil de l’utilisateur : ajouter des informations (nom, prénom, genre préféré ...)
@@ -144,7 +152,7 @@ genre préféré etc...
 
 (Nicolas Bernardet, Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=ajouterinfo
 
 
 12. Recherche dans le catalogue par mots clés
@@ -154,7 +162,7 @@ contenant ces mots dans le titre ou le descriptif sont affichées.
 
 (Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 13. Tri dans le catalogue
@@ -164,7 +172,7 @@ titre, date d’ajout sur la plateforme, nombre d’épisodes ...
 
 (Victor Lath)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 14. filtrage du catalogue par genre, par public
@@ -173,7 +181,7 @@ Lors de l’affichage du catalogue, filtrer le résultat selon le genre, ou selo
 
 (Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 15. gestion de la liste de préférence : retrait
@@ -182,7 +190,9 @@ L’utilisateur peut supprimer des éléments de sa liste de préférence.
 
 (Nicolas Bernardet)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieAction&idserie=2
+
+PS : Cliquer sur le bouton Ajouter/Retirer des favs
 
 
 16. Gestion de la liste « déjà visionnées »
@@ -193,21 +203,21 @@ visualisation de cette liste.
 
 (Victor Lath)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieTermine
 
 
 18. accès direct à l’épisode à visionner lorsque l’on visualise une série qui est dans la liste « en cours »
 
 (Victor Lath)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieEnCoursAction
 
 
 19. Tri dans le catalogue selon la note moyenne
 
 (Sila Capar, Victor Lath, Nicolas Bernardet, Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 20. mot de passe oublié
@@ -219,4 +229,4 @@ un formulaire lui permettant de saisir un nouveau mot de passe.
 
 (Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=identification

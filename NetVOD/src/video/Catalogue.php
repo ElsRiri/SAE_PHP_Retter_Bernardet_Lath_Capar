@@ -1,9 +1,11 @@
 <?php
+
 namespace NetVOD\video;
 
 use NetVOD\db\ConnectionFactory;
 
-class Catalogue {
+class Catalogue
+{
     protected array $series;
 
     public function __construct()
@@ -13,13 +15,14 @@ class Catalogue {
         $res = ConnectionFactory::$db->prepare($sql);
         $res->execute();
 
-        while ($data = $res->fetch()){
-            $s = new Serie($data[0],$data[1],$data[2],$data[3],$data[4],$data[5],[]);
-            array_push($this->series,$s);
+        while ($data = $res->fetch()) {
+            $s = new Serie($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], []);
+            array_push($this->series, $s);
         }
     }
 
-    public function render():string{
+    public function render(): string
+    {
         $res = "<ul>";
 
         foreach ($this->series as $tS => $v) {
@@ -28,6 +31,40 @@ class Catalogue {
             END;
         }
 
-        return $res."</ul>";
+        return $res . "</ul>";
     }
+
+    public function tri($ordre, $attribut)
+    {
+        if ($attribut === "nb_episode") {
+            if ($ordre === 'croissant') {
+                usort($this->series, fn($a, $b) => sizeof($a->episode) <=> sizeof($b->episode));
+            } elseif ($ordre === 'decroissant') {
+                usort($this->series, fn($a, $b) => sizeof($b->episode) <=> sizeof($a->episode));
+            }
+        } else if ($ordre == 'croissant') {
+            usort($this->series, fn($a, $b) => $a->$attribut <=> $b->$attribut);
+        } elseif ($ordre === 'decroissant') {
+            usort($this->series, fn($a, $b) => $b->$attribut <=> $a->$attribut);
+        }
+
+    }
+
+    public function insertRecherche(string $search){
+        unset($this->series);
+        $sql = "select serie.id, serie.titre, serie.descriptif, serie.img, serie.annee, serie.date_ajout 
+                from serie
+                where LOCATE(?, serie.titre)
+                OR LOCATE(?, serie.descriptif)";
+
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt->bindParam(1, $search);
+        $stmt->bindParam(2, $search);
+        $stmt->execute();
+
+        while($data = $stmt->fetch()){
+            $this->series[]=new \NetVOD\video\Serie($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+        }
+    }
+
 }

@@ -40,7 +40,11 @@ class Serie
 
     }
 
-
+    public function __set(string $at,mixed $val):void {
+        if ( property_exists ($this, $at) ) {
+            $this->$at = $val;
+        } else throw new Exception ("$at: invalid property");
+    }
     public function insertEpisode():array{
         $sql = "select * from episode where episode.serie_id = ?";
         $stmt = \NetVOD\db\ConnectionFactory::$db->prepare($sql);

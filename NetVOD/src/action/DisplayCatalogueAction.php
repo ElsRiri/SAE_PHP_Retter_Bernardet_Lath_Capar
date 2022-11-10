@@ -31,6 +31,7 @@ class DisplayCatalogueAction extends Action
                         <option value="date_ajout">date_ajout</option>
                         <option value="nb_episode">nb_episode</option>
                         <option value="annee">annee</option>
+                         <option value="note">note</option>
                     </select>
                     <input type="radio" id="decroissant" name="tri" value="decroissant" checked>
                     <label for="annee">decroissant</label>
@@ -71,6 +72,7 @@ class DisplayCatalogueAction extends Action
                         <option value="date_ajout">date_ajout</option>
                         <option value="nb_episode">nb_episode</option>
                         <option value="annee">annee</option>
+                        <option value="note">note</option>
                     </select>
                     <input type="radio" id="decroissant" name="tri" value="decroissant" checked>
                     <label for="annee">decroissant</label>

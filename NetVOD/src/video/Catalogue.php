@@ -51,7 +51,13 @@ class Catalogue
             } elseif ($ordre === 'decroissant') {
                 usort($this->series, fn($a, $b) => sizeof($b->episode) <=> sizeof($a->episode));
             }
-        } else if ($ordre == 'croissant') {
+        } elseif ($attribut === "note") {
+            if ($ordre === 'croissant') {
+                usort($this->series, fn($a, $b) => $a->calculnote() <=> $b->calculnote());
+            } elseif ($ordre === 'decroissant') {
+                usort($this->series, fn($a, $b) => $b->calculnote() <=> $a->calculnote());
+            }
+        } elseif ($ordre == 'croissant') {
             usort($this->series, fn($a, $b) => $a->$attribut <=> $b->$attribut);
         } elseif ($ordre === 'decroissant') {
             usort($this->series, fn($a, $b) => $b->$attribut <=> $a->$attribut);
@@ -59,9 +65,10 @@ class Catalogue
 
     }
 
-    public function insertRecherche(string $search){
-        foreach ($this->series as $key => $serie){
-            if ((!str_contains($serie->titre, $search))&&(!str_contains($serie->descriptif,$search))){
+    public function insertRecherche(string $search)
+    {
+        foreach ($this->series as $key => $serie) {
+            if ((!str_contains($serie->titre, $search)) && (!str_contains($serie->descriptif, $search))) {
                 unset($this->series[$key]);
             }
         }

@@ -142,7 +142,7 @@ page comme résultat de l’inscription.
 
 (Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=inscription
 
 
 17. gestion du profil de l’utilisateur : ajouter des informations (nom, prénom, genre préféré ...)
@@ -152,7 +152,7 @@ genre préféré etc...
 
 (Nicolas Bernardet, Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=ajouterinfo
 
 
 12. Recherche dans le catalogue par mots clés
@@ -162,7 +162,7 @@ contenant ces mots dans le titre ou le descriptif sont affichées.
 
 (Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 13. Tri dans le catalogue
@@ -172,7 +172,7 @@ titre, date d’ajout sur la plateforme, nombre d’épisodes ...
 
 (Victor Lath)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 14. filtrage du catalogue par genre, par public
@@ -181,7 +181,7 @@ Lors de l’affichage du catalogue, filtrer le résultat selon le genre, ou selo
 
 (Sila Capar)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 15. gestion de la liste de préférence : retrait
@@ -190,7 +190,9 @@ L’utilisateur peut supprimer des éléments de sa liste de préférence.
 
 (Nicolas Bernardet)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieAction&idserie=2
+
+PS : Cliquer sur le bouton Ajouter/Retirer des favs
 
 
 16. Gestion de la liste « déjà visionnées »
@@ -201,21 +203,21 @@ visualisation de cette liste.
 
 (Victor Lath)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieTermine
 
 
 18. accès direct à l’épisode à visionner lorsque l’on visualise une série qui est dans la liste « en cours »
 
 (Victor Lath)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplaySerieEnCoursAction
 
 
 19. Tri dans le catalogue selon la note moyenne
 
 (Sila Capar, Victor Lath, Nicolas Bernardet, Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=DisplayCatalogueAction
 
 
 20. mot de passe oublié
@@ -227,4 +229,4 @@ un formulaire lui permettant de saisir un nouveau mot de passe.
 
 (Guillaume Retter)
 
-URL :
+URL : https://webetu.iutnc.univ-lorraine.fr/www/capar7u/NetVOD/index.php?action=identification

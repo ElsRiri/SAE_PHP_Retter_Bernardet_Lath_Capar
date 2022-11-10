@@ -17,7 +17,7 @@ class DisplaySerieAction extends Action
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $idSerie = $_GET['idserie'];
             $connexion = ConnectionFactory::makeConnection();
-            $stmt = $connexion->prepare("select serie.id, titre, descriptif, img, annee, date_ajout, genre.libelle_genre, public.libelle_public
+            $stmt = $connexion->prepare("select serie.id, titre, descriptif, img, annee, date_ajout, genre.id_genre,public.id 
             from serie, genre, public
             where serie.id_public=public.id
             and serie.no_genre=genre.id_genre
@@ -34,33 +34,36 @@ class DisplaySerieAction extends Action
             END;
 
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
-
             $id = 0;
             foreach ($_POST as $t => $v) {
                 $id = $t;
             }
-            if (Serie::checkPreference($id)) {
-                Serie::retirerPreference($id);
-            } else {
-                Serie::ajouterPreference($id);
-            }
 
-
-            
-
-            $idSerie = $_GET['idserie'];
-            $connexion = ConnectionFactory::makeConnection();
-            $stmt = $connexion -> prepare("SELECT * from serie WHERE id = ?");
-            $stmt -> bindParam(1,$idSerie);
-            $stmt -> execute();
-            $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $serie = null;
-            if(count($resultatSet)>=1){
-                $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
-            }
-            $s = <<<END
+            //on regarde dans le post si on doit
+            if (in_array("Ajouter / Retirer des Favoris",$_POST)){
+                if (Serie::checkPreference($id)) {
+                    Serie::retirerPreference($id);
+                } else {
+                    Serie::ajouterPreference($id);
+                }
+                $idSerie = $_GET['idserie'];
+                $connexion = ConnectionFactory::makeConnection();
+                $stmt = $connexion -> prepare("SELECT * from serie WHERE id = ?");
+                $stmt -> bindParam(1,$idSerie);
+                $stmt -> execute();
+                $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
+                $serie = null;
+                if(count($resultatSet)>=1){
+                    $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
+                }
+                $s = <<<END
             {$serie->render()}
             END;
+            }else{
+                $dernier_episode = Serie::dernierEpisodeEnCours($id);
+                $s.=$dernier_episode->render();
+
+            }
 
 
         }else{

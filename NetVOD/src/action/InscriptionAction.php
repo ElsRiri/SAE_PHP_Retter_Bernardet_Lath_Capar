@@ -24,11 +24,21 @@ class InscriptionAction extends Action
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
             $mail = $_POST['email'];
             $token = Auth::register($_POST['email'], $_POST['password']);
-            $html .= <<<END
-            
-            <a href=index.php?action=activationToken&email=$mail&token=$token><strong><FONT size="120pt">Validation du compte !</FONT></strong></a>
+            if ($token=="Erreur : Mot de passe pas assez long (min : 10)"){
+                $html .= <<<END
+                    <p>$token</p>
+                END;
+            } elseif ($token == "Erreur : Email déjà utilisé"){
+                $html .= <<<END
+                    <p>$token</p>
+                END;
+            }else{
+                $html .= <<<END
+                
+                <a href=index.php?action=activationToken&email=$mail&token=$token><strong><FONT size="120pt">Validation du compte !</FONT></strong></a>
 
-            END;
+                END;
+            }
         }
         return $html;
 

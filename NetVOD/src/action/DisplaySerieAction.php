@@ -34,7 +34,6 @@ class DisplaySerieAction extends Action
             END;
 
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
-
             $id = 0;
             foreach ($_POST as $t => $v) {
                 $id = $t;
@@ -46,21 +45,26 @@ class DisplaySerieAction extends Action
             }
 
 
-            
+            $dernier_episode = Serie::dernierEpisodeEnCours($id);
 
-            $idSerie = $_GET['idserie'];
-            $connexion = ConnectionFactory::makeConnection();
-            $stmt = $connexion -> prepare("SELECT * from serie WHERE id = ?");
-            $stmt -> bindParam(1,$idSerie);
-            $stmt -> execute();
-            $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $serie = null;
-            if(count($resultatSet)>=1){
-                $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
-            }
-            $s = <<<END
+            if(is_null($dernier_episode)){
+                $idSerie = $_GET['idserie'];
+                $connexion = ConnectionFactory::makeConnection();
+                $stmt = $connexion -> prepare("SELECT * from serie WHERE id = ?");
+                $stmt -> bindParam(1,$idSerie);
+                $stmt -> execute();
+                $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
+                $serie = null;
+                if(count($resultatSet)>=1){
+                    $serie = new Serie($resultatSet['id'],$resultatSet['titre'],$resultatSet['descriptif'],$resultatSet['img'],$resultatSet['annee'],$resultatSet['date_ajout']);
+                }
+                $s = <<<END
             {$serie->render()}
             END;
+            }else{
+                $s=$dernier_episode->render();
+            }
+
 
 
         }else{

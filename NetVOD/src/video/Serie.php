@@ -7,8 +7,8 @@ use \NetVOD\Exception\InvalidPropertyNameException;
 
 class Serie
 {
-    protected string $titre, $descriptif, $date_ajout, $img , $genre, $public;
-    protected int $id, $annee;
+    protected string $titre, $descriptif, $date_ajout, $img;
+    protected int $id, $annee, $no_genre, $id_public;
     protected array $episode;
 
     /**
@@ -22,7 +22,7 @@ class Serie
      * @param int $id_public
      * @param array $ep
      */
-    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "", string $genre = "", string $public = "", array $ep = [])
+    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "", int $no_genre = 0, int $id_public = 0, array $ep = [])
     {
         $this->id = $id;
         $this->titre = $titre;
@@ -30,8 +30,8 @@ class Serie
         $this->img = $img;
         $this->annee = $annee;
         $this->date_ajout = $date_ajout;
-        $this->genre = $genre;
-        $this->public = $public;
+        $this->no_genre = $no_genre;
+        $this->id_public = $id_public;
         $this->episode = $this->insertEpisode();
 
     }
@@ -77,12 +77,9 @@ class Serie
                 $idS = "";
             }
         }
-        $public = str_replace("_"," ", $this->public);
         $html = <<<END
         <h4>Titre : $this->titre</h4>
         <p>Description : $this->descriptif<p>
-        <br> Genre : $this->genre
-        <br> Public visé : $public
         <br> Note : {$this->calculnote()}/5
         <br> <a href = "index.php?action=DisplayCommentaire&idserie=$this->id"> Voir les commentaires </a>
         <br>
@@ -271,5 +268,49 @@ class Serie
 
         return $string;
     }
+
+    public function TriGenre()
+    {
+
+    }
+
+    public static function dernierEpisodeEnCours($id_serie): mixed
+    {
+        $dernierEpisode = null;
+        $connexion = ConnectionFactory::makeConnection();
+        $id_user = $_SESSION['connexion']->getId();
+
+        //pour chaque serie vue
+        $stmt = $connexion->prepare("select distinct * from serie where id = ?");
+        $stmt->bindParam(1, $id_serie);
+        $stmt->execute();
+        $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $serie = new Serie($resultatSet['id'], $resultatSet['titre'], $resultatSet['descriptif'], $resultatSet['img'], $resultatSet['annee'], $resultatSet['date_ajout']);
+        $nb_episode = sizeof($serie->episode);
+        //on récupère les episodes vus avec les id
+        $episode_vu = [];
+        $stmt = $connexion->prepare("select max(episode.numero) as dernier_episode from ep_vision inner join episode on ep_vision.id_ep=episode.id where ep_vision.id_user =? and episode.serie_id =?;");
+        $stmt->bindParam(1, $id_user);
+        $stmt->bindParam(2, $resultatSet['id']);
+        $stmt->execute();
+        $resultatSet2 = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $numero_dernier_ep = $resultatSet2['dernier_episode'];
+
+
+        $stmt = $connexion->prepare("select  * from serie where id = ?");
+        $stmt->bindParam(1, $id_serie);
+        $stmt->execute();
+        $resultatSet = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $serie = new Serie($resultatSet['id'], $resultatSet['titre'], $resultatSet['descriptif'], $resultatSet['img'], $resultatSet['annee'], $resultatSet['date_ajout']);
+
+        //cherche episode dans serie
+        foreach ($serie->episode as $key => $value) {
+            if ($value->numero == $numero_dernier_ep) {
+                $dernierEpisode = $value;
+            }
+        }
+        return $dernierEpisode;
+    }
+
 
 }

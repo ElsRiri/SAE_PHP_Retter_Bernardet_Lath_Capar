@@ -8,7 +8,7 @@ use \NetVOD\Exception\InvalidPropertyNameException;
 class Serie
 {
     protected string $titre, $descriptif, $date_ajout, $img;
-    protected int $id, $annee;
+    protected int $id, $annee, $no_genre, $id_public;
     protected array $episode;
 
     /**
@@ -18,9 +18,11 @@ class Serie
      * @param String img
      * @param int $annee
      * @param String $date_ajout
+     * @param int $no_genre
+     * @param int $id_public
      * @param array $ep
      */
-    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "", array $ep = [])
+    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "",int $no_genre = 0, int $id_public = 0, array $ep = [])
     {
         $this->id = $id;
         $this->titre = $titre;
@@ -28,6 +30,8 @@ class Serie
         $this->img = $img;
         $this->annee = $annee;
         $this->date_ajout = $date_ajout;
+        $this->no_genre = $no_genre;
+        $this->id_public = $id_public;
         $this->episode = $this->insertEpisode();
 
     }
@@ -43,7 +47,7 @@ class Serie
     public function __set(string $at,mixed $val):void {
         if ( property_exists ($this, $at) ) {
             $this->$at = $val;
-        } else throw new Exception ("$at: invalid property");
+        } else throw new \Exception ("$at: invalid property");
     }
     public function insertEpisode():array{
         $sql = "select * from episode where episode.serie_id = ?";
@@ -206,6 +210,10 @@ class Serie
         END;
 
         return $string;
+    }
+
+    public function TriGenre(){
+        
     }
 
 

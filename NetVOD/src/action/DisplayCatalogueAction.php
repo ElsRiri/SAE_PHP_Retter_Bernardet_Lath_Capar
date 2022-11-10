@@ -26,8 +26,6 @@ class DisplayCatalogueAction extends Action
                 <form id="recherche" method="post" action="index.php?action=DisplayCatalogueAction">
                 <label>Recherche : </label>
                 <input name="recherche" type="text" placeholder="saisir mots...">
-                </form>
-                <form id="tri" method="post" action="index.php?action=DisplayCatalogueAction"> 
                     <select name="attribut" id="tri">
                         <option value="titre">titre</option>
                         <option value="date_ajout">date_ajout</option>
@@ -68,8 +66,6 @@ class DisplayCatalogueAction extends Action
                 <form id="recherche" method="post" action="index.php?action=DisplayCatalogueAction">
                 <label>Recherche : </label>
                 <input name="recherche" type="text" placeholder="saisir mots...">
-                </form>
-                <form id="tri" method="post" action="index.php?action=DisplayCatalogueAction"> 
                     <select name="attribut" id="tri">
                         <option value="titre">titre</option>
                         <option value="date_ajout">date_ajout</option>

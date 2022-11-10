@@ -23,17 +23,10 @@ END;
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $us = Auth::authenticate($_POST['email'], $_POST['password']);
-            if (!is_null($us)) {
-                //$tab = $us->getPlaylists();
-                //foreach ($tab as $key => $value) {
-                    //$var = \iutnc\deefy\audio\lists\Playlist::find($value["id"]);
-                    //$var2 = new \iutnc\deefy\render\AudioListRenderer($var);
-                    //$str = $var2->render(1);
-                    //$html .= $str;
-                //}
-            } else {
+            if (is_null($us)) {
                 $html = "Ces informations ne vous ont pas permis de vous authentifier";
             }
+
         }
         return $html;
 

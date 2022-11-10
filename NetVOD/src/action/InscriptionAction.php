@@ -12,18 +12,23 @@ class InscriptionAction extends Action
         $html = "";
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $html = <<<END
-<form id="inscription" method="post" action="index.php?action=inscription">
-<label>Email : </label>
-<input name="email" type="email" placeholder="<email>">
-<label>Mot de passe : </label>
-<input name="password" type="password" placeholder="<password>">
-<button type="submit">valider</button>
-</form>
-END;
+            <form id="inscription" method="post" action="index.php?action=inscription">
+            <label>Email : </label>
+            <input name="email" type="email" placeholder="<email>">
+            <label>Mot de passe : </label>
+            <input name="password" type="password" placeholder="<password>">
+            <button type="submit">valider</button>
+            </form>
+            END;
             return $html;
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $mail = $_POST['email'];
+            $token = Auth::register($_POST['email'], $_POST['password']);
+            $html .= <<<END
+            
+            <a href=index.php?action=activationToken&email=$mail&token=$token><strong><FONT size="120pt">Validation du compte !</FONT></strong></a>
 
-            $html = Auth::register($_POST['email'], $_POST['password']);
+            END;
         }
         return $html;
 

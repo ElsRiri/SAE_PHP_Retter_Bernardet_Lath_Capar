@@ -24,14 +24,24 @@ class DisplayProfileAction extends Action
             $stmt->bindParam(1, $id_genre);
             $stmt->execute();
             $data = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $genre = $data['libelle_genre'];
-
-            if (is_null($nom)){
-                $str.= 'vous etes connecté, '.$_SESSION['connexion']->email;
-                $str.= 'Vous pouvez configurer d\'autres infos';
-            } else {
-                $str.="Vous êtes connecté $prenom $nom sur l'email $email et $genre est votre genre préféré";
+            if (isset($data['libelle_genre'])){
+                $genre = $data['libelle_genre'];
+                if (is_null($nom)){
+                    $str.= 'vous etes connecté, '.$_SESSION['connexion']->email;
+                    $str.= 'Vous pouvez configurer d\'autres infos';
+                } else {
+                    $str.="Vous êtes connecté $prenom $nom sur l'email $email et $genre est votre genre préféré.";
+                }
+            }else{
+                if (is_null($nom)){
+                    $str.= 'vous etes connecté, '.$_SESSION['connexion']->email.". ";
+                    $str.= 'Vous pouvez configurer d\'autres infos';
+                } else {
+                    $str.="Vous êtes connecté $prenom $nom sur l'email $email .";
+                }
             }
+
+            
 
         }else{
             $str.= 'vous etes pas connecté';

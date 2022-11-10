@@ -1,6 +1,8 @@
 <?php
 namespace NetVOD\Auth;
 
+use NetVOD\action\ActivationTokenAction;
+use NetVOD\action\InscriptionAction;
 use NetVOD\db\ConnectionFactory;
 use NetVOD\User\User;
 use PDO;
@@ -62,14 +64,56 @@ class Auth{
             $data = $stmt ->fetch(PDO::FETCH_ASSOC);
             $id = $data['id']+1;
 
-            $stmt = $connexion->prepare('INSERT INTO user VALUES(?, ?, ?)');
+            $stmt = $connexion->prepare('INSERT INTO user (id,email,passwd) VALUES(?, ?, ?)');
             $stmt->bindParam(1, $id);
             $stmt->bindParam(2, $mail);
             $stmt->bindParam(3, $passhash);
             $stmt->execute();
-            return "succès";
+
+            return Auth::enregistrerToken($mail);;
         }
 
     }
 
+
+    public static function enregistrerToken($mail):string{
+        $token = bin2hex(random_bytes(32));
+        $dateT = date('Y-m-d H:i:s',time() + 60*60);
+
+        $sql = "UPDATE user SET activation_token='$token' , 
+        activation_expires =  ADDTIME('$dateT','00:00:00') WHERE email='$mail'";
+        $res = ConnectionFactory::$db->prepare($sql);
+        $res->execute();
+
+
+        return $token;
+
+    }
+
+    public static function activate(string $token): bool {
+        $activation = false;
+        $dateCourant = date('Y-m-d H:i:s',time());
+        $sql = "SELECT email FROM user WHERE activation_token = '$token' AND activation_expires > '$dateCourant'";
+        
+        $res = ConnectionFactory::$db->prepare($sql);
+        $res->execute();
+
+        while ($data = $res->fetch()){
+            $mail = $data[0];
+            $activation = true;
+        }
+
+        if ($activation==true){
+            $sql2 = "UPDATE user set activation = 1, activation_token=null WHERE activation_token = '$token' AND email = '$mail'";
+            $res2 = ConnectionFactory::$db->prepare($sql2);
+            $res2->execute();
+        }else{
+            $sql2 = "DELETE user WHERE email = '$mail'";
+            $res2 = ConnectionFactory::$db->prepare($sql2);
+            $res2->execute();
+        }
+        
+
+        return $activation;
+    }
 }

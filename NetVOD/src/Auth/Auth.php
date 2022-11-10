@@ -1,6 +1,7 @@
 <?php
 namespace NetVOD\Auth;
 
+use Exception;
 use NetVOD\action\ActivationTokenAction;
 use NetVOD\action\InscriptionAction;
 use NetVOD\db\ConnectionFactory;
@@ -39,7 +40,8 @@ class Auth{
 
     static function register($mail, $mdp) : string
     {
-
+        echo $mdp;
+        echo $mail;
         //Longueur
         if (strlen($mdp) <10){
             return "Erreur : Mot de passe pas assez long (min : 10)";
@@ -70,7 +72,7 @@ class Auth{
             $stmt->bindParam(3, $passhash);
             $stmt->execute();
 
-            return Auth::enregistrerToken($mail);;
+            return Auth::enregistrerToken($mail);
         }
 
     }
@@ -105,25 +107,35 @@ class Auth{
 
     public static function activate(string $token): bool {
         $activation = false;
+        $mail = "";
         $dateCourant = date('Y-m-d H:i:s',time());
         $sql = "SELECT email FROM user WHERE activation_token = '$token' AND activation_expires > '$dateCourant'";
         
-        $res = ConnectionFactory::$db->prepare($sql);
-        $res->execute();
+        try{
+            $res = ConnectionFactory::$db->prepare($sql);
+            $res->execute();
+            while ($data = $res->fetch()){
+                    $mail = $data[0];
+                    $activation = true;
+            }
+            if ($mail!==NULL){
+                
 
-        while ($data = $res->fetch()){
-            $mail = $data[0];
-            $activation = true;
-        }
-
-        if ($activation==true){
-            $sql2 = "UPDATE user set activation = 1, activation_token=null WHERE activation_token = '$token' AND email = '$mail'";
-            $res2 = ConnectionFactory::$db->prepare($sql2);
-            $res2->execute();
-        }else{
-            $sql2 = "DELETE user WHERE email = '$mail'";
-            $res2 = ConnectionFactory::$db->prepare($sql2);
-            $res2->execute();
+                if ($activation==true){
+                    $sql2 = "UPDATE user set activation = 1, activation_token=null WHERE activation_token = '$token' AND email = '$mail'";
+                    $res2 = ConnectionFactory::$db->prepare($sql2);
+                    $res2->execute();
+                }else{
+                    echo $mail;
+                    $sql2 = "DELETE user WHERE email = '$mail'";
+                    $res2 = ConnectionFactory::$db->prepare($sql2);
+                    $res2->execute();
+                }
+            }else{
+                throw new Exception();
+            }
+        }catch (\Exception){
+            $activation=false;
         }
         
 

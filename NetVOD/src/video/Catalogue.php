@@ -59,21 +59,11 @@ class Catalogue
 
     }
 
-    public function insertRecherche(string $search)
-    {
-        unset($this->series);
-        $sql = "select serie.id, serie.titre, serie.descriptif, serie.img, serie.annee, serie.date_ajout 
-                from serie
-                where LOCATE(?, serie.titre)
-                OR LOCATE(?, serie.descriptif)";
-
-        $stmt = ConnectionFactory::$db->prepare($sql);
-        $stmt->bindParam(1, $search);
-        $stmt->bindParam(2, $search);
-        $stmt->execute();
-
-        while ($data = $stmt->fetch()) {
-            $this->series[] = new \NetVOD\video\Serie($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+    public function insertRecherche(string $search){
+        foreach ($this->series as $key => $serie){
+            if ((!str_contains($serie->titre, $search))&&(!str_contains($serie->descriptif,$search))){
+                unset($this->series[$key]);
+            }
         }
     }
 

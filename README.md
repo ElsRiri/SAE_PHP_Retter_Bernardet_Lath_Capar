@@ -53,7 +53,7 @@ descriptif, année de sortie, date d’ajout sur la plateforme, nombre d’épis
 épisodes de la série est également affichée, avec pour chaque épisode : numéro, titre, durée,
 image.
 
-(Victor Lath)
+(Victor Lath, Sila Capar)
 
 URL :
 
@@ -142,7 +142,7 @@ URL :
 L’utilisateur peut renseigner des informations le concernant dans son profil : nom, prénom,
 genre préféré etc...
 
-(Nicolas Bernardet)
+(Nicolas Bernardet, Sila Capar)
 
 URL :
 

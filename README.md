@@ -1,8 +1,8 @@
 SAE PHP S3C :
-Retter Guillaume
-Bernardet Nicolas
-Lath Victor
-Capar Sila
+Retter Guillaume (gretter6)
+Bernardet Nicolas (ElsRiri - Riri)
+Lath Victor (Victor.L - victorLath)
+Capar Sila (silacpr)
 
 
 Fonctionnalités de base :

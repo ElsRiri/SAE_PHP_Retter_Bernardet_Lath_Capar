@@ -7,8 +7,8 @@ use \NetVOD\Exception\InvalidPropertyNameException;
 
 class Serie
 {
-    protected string $titre, $descriptif, $date_ajout, $img;
-    protected int $id, $annee, $no_genre, $id_public;
+    protected string $titre, $descriptif, $date_ajout, $img , $genre, $public;
+    protected int $id, $annee;
     protected array $episode;
 
     /**
@@ -22,7 +22,7 @@ class Serie
      * @param int $id_public
      * @param array $ep
      */
-    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "", int $no_genre = 0, int $id_public = 0, array $ep = [])
+    public function __construct(int $id = 0, string $titre = "", string $descriptif = "", string $img = "", int $annee = 0, string $date_ajout = "", string $genre = "", string $public = "", array $ep = [])
     {
         $this->id = $id;
         $this->titre = $titre;
@@ -30,8 +30,8 @@ class Serie
         $this->img = $img;
         $this->annee = $annee;
         $this->date_ajout = $date_ajout;
-        $this->no_genre = $no_genre;
-        $this->id_public = $id_public;
+        $this->genre = $genre;
+        $this->public = $public;
         $this->episode = $this->insertEpisode();
 
     }

@@ -72,7 +72,6 @@ class DisplayEpisode extends Action
                 $stmt->execute();
 
                 $data = $stmt->fetch(\PDO::FETCH_ASSOC);
-                //int $id=0, int $numero=0, int $duree=0, int $serie_id=0 ,string $titre="", string $resume="",string $fichier=""
                 $episode = new \NetVOD\video\Episode($data['id'], $data['numero'], $data['duree'], $data['serie_id'], $data['titre'], $data['resume'], $data['file']);
 
                 $html = <<<END

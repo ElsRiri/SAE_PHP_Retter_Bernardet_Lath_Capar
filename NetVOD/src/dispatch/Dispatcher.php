@@ -130,7 +130,7 @@ class Dispatcher
     <title>NetVOD</title>
 </head>
 <body>
-<h1>NetVOD</h1>
+<h1 class ="notreh1">NetVOD</h1>
 <nav>
 <ul>
 <li><a href="index.php">Accueil</a></li>

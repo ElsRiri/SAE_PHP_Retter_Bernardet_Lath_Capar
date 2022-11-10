@@ -2,7 +2,20 @@ body{
     background-color:#051C24 ;
     color : white;
     text-align: justify;
+    font-size: 20px;
 }
+
+h1{
+    font-size:40px;
+}
+
+.notreh1{
+    color:red;
+    text-align: center;
+    font-size: 50px;
+}
+
+
 
 a{
     color: #04BBFF;
@@ -56,3 +69,9 @@ figure {
   div{
     font-style: italic;
   }
+
+  .jpp{
+    background-color:#0b3b4b;
+    color: white;
+  }
+

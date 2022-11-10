@@ -38,15 +38,14 @@ class DisplaySerieAction extends Action
             foreach ($_POST as $t => $v) {
                 $id = $t;
             }
-            if (Serie::checkPreference($id)) {
-                Serie::retirerPreference($id);
-            } else {
-                Serie::ajouterPreference($id);
-            }
 
-
-            $dernier_episode = Serie::dernierEpisodeEnCours($id);
-            if(is_null($dernier_episode)){
+            //on regarde dans le post si on doit
+            if (in_array("Ajouter / Retirer des Favoris",$_POST)){
+                if (Serie::checkPreference($id)) {
+                    Serie::retirerPreference($id);
+                } else {
+                    Serie::ajouterPreference($id);
+                }
                 $idSerie = $_GET['idserie'];
                 $connexion = ConnectionFactory::makeConnection();
                 $stmt = $connexion -> prepare("SELECT * from serie WHERE id = ?");
@@ -61,9 +60,10 @@ class DisplaySerieAction extends Action
             {$serie->render()}
             END;
             }else{
+                $dernier_episode = Serie::dernierEpisodeEnCours($id);
                 $s.=$dernier_episode->render();
-            }
 
+            }
 
 
         }else{

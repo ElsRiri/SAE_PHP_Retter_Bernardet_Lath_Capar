@@ -56,7 +56,7 @@ class DisplayCatalogueAction extends Action
             }
 
             //tri le catalogue
-            if (isset($_POST['attribut']) && isset($_POST['tri'])) {
+            if (sizeof($catalogue->series)>=2 && isset($_POST['attribut']) && isset($_POST['tri'])) {
                 $tri = $_POST['tri'];
                 $attribut = $_POST['attribut'];
                 $catalogue->tri($tri, $attribut);

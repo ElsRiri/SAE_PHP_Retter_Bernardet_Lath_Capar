@@ -21,6 +21,15 @@ class Catalogue
         }
     }
 
+    public function __get(string $at): mixed
+    {
+        if (property_exists($this, $at)) {
+            return $this->$at;
+        }
+        throw new  \NetVOD\Exception\InvalidPropertyNameException("$at: invalid property");
+
+    }
+
     public function render(): string
     {
         $res = "<ul>";
@@ -50,7 +59,8 @@ class Catalogue
 
     }
 
-    public function insertRecherche(string $search){
+    public function insertRecherche(string $search)
+    {
         unset($this->series);
         $sql = "select serie.id, serie.titre, serie.descriptif, serie.img, serie.annee, serie.date_ajout 
                 from serie
@@ -62,8 +72,8 @@ class Catalogue
         $stmt->bindParam(2, $search);
         $stmt->execute();
 
-        while($data = $stmt->fetch()){
-            $this->series[]=new \NetVOD\video\Serie($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+        while ($data = $stmt->fetch()) {
+            $this->series[] = new \NetVOD\video\Serie($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
         }
     }
 

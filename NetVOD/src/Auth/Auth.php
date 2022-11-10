@@ -90,6 +90,19 @@ class Auth{
 
     }
 
+    public static function enregistrerNewToken($mail):string{
+        $token = bin2hex(random_bytes(32));
+        $dateT = date('Y-m-d H:i:s',time() + 60*60);
+
+        $sql = "UPDATE user SET renew_token='$token' , 
+        renew_expires =  ADDTIME('$dateT','00:00:00') WHERE email='$mail'";
+        $res = ConnectionFactory::$db->prepare($sql);
+        $res->execute();
+
+        return $token;
+
+    }
+
     public static function activate(string $token): bool {
         $activation = false;
         $dateCourant = date('Y-m-d H:i:s',time());
@@ -115,5 +128,32 @@ class Auth{
         
 
         return $activation;
+    }
+
+    public static function renewpswd($mdp,$email):string{
+        $message = "Le mot de passe à bien était changé";
+        $dateCourant = date('Y-m-d H:i:s',time());
+        $sql = "SELECT email FROM user WHERE email='$email' AND renew_expires > '$dateCourant'";
+        $res = ConnectionFactory::$db->prepare($sql);
+        $res->execute();
+        $data = $res->fetch();
+        //echo $data."<br>ca doit marcher";
+        if ($data!==NULL){
+            //Longueur
+            if (strlen($mdp) <10){
+                $message = "Erreur : Mot de passe pas assez long (min : 10)";
+            }
+
+            $passhash = password_hash($mdp, PASSWORD_BCRYPT);
+
+            $stmt = ConnectionFactory::$db->prepare("UPDATE user SET passwd='$passhash' WHERE email = ?");
+            $stmt->bindParam(1, $email);
+            $stmt->execute();
+
+        }else{
+            $message = "Page expirée !";
+        }
+
+        return $message;
     }
 }

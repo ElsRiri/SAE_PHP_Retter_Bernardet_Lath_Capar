@@ -12,13 +12,14 @@ class IdentificationAction extends \NetVOD\action\Action
         $html = "";
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $html = <<<END
-<form id="connexion" method="post" action="index.php?action=identification">
-<label>Email : </label>
-<input name="email" type="email" placeholder="<email>">
-<label>Mot de passe : </label>
-<input name="password" type="password" placeholder="<password>">
-<button type="submit">valider</button>
-</form>
+            <form id="connexion" method="post" action="index.php?action=identification">
+                <label>Email : </label>
+                <input name="email" type="email" placeholder="<email>">
+                <label>Mot de passe : </label>
+                <input name="password" type="password" placeholder="<password>">
+                <button type="submit">valider</button>
+            </form>
+            <a href='?action=mdpOublie'>Mot de passe oublié ?</a>
 END;
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
 

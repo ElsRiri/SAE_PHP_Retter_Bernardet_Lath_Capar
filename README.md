@@ -10,12 +10,12 @@ Capar Sila (silacpr)
 
 -----------------------
 
-A.  English documentation
-B.  Readme développement web
+##A.  English documentation
+##B.  Readme développement web
 
 -----------------------
 
-A.  English documentation
+##A.  English documentation
 
 NetVOD is a streaming website where you can watch series easily and follow your advancement . It is developed essentially in PHP and mySQL for the database.
 
@@ -24,23 +24,23 @@ At start you can access a login page where you can enter your login and your pas
 When you click on the submit button you receive a link where you can confirm your account.
 If you are a user who is already registered and you forgot your password, you can click on a link “Mot de passe oublié ? ” (forgotten password) that moves you to pages where you can change your password.
 
-Catalog
+#Catalog
 When the user is logged in he can click on the “Affichage du catalogue” option that displays the catalog with all the series in. You can sort the series by their name, their appearance date in the catalog, their number of episodes, their release date, their age rating and their genres by ascendant and descendant order.
 
-Add/Remove from Favorite
+#Add/Remove from Favorite
 When a user selects any episode in the catalog or favorite series he can add or remove this episode to your favorite series.
 
-Comment and rate 
+#Comment and rate 
 The user can rate each episode between 0 and 5, and leave a comment. Moreover, the user can check the average rating by all accounts for each series. 
 
-Currently watching
+#Currently watching
 When the user starts a new series, it will appear in the display “Series en Cours” (Currently watched series) which allows him to carry on his series. When he finishes one of them, it will be moved to “Series Terminées” (Completed series). 
 
-Profil 
+#Profil 
 The user can add further information about himself such as his name, surname and his favorite genre by clicking the “Ajouter information à votre profil” option. 
 
 
-B.  Readme développement web
+##B.  Readme développement web
 
 Fonctionnalités de base :
 
